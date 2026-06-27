@@ -44,6 +44,25 @@ bool ArchivoMesa :: guardar(Mesa obj)
     return escribio;
 
 }
+bool ArchivoMesa :: guardar(Mesa obj, int pos)
+{
+
+    FILE* p = fopen(_nombreArchivo,"rb+");
+
+    if(p == nullptr)
+    {
+        return false;
+    }
+
+    fseek(p,sizeof(Mesa)*pos,SEEK_SET);
+
+    bool escribio = fwrite(&obj,sizeof(Mesa),1,p);
+
+    fclose(p);
+
+    return escribio;
+
+}
 Mesa ArchivoMesa :: leer(int pos)
 {
 
@@ -64,4 +83,21 @@ Mesa ArchivoMesa :: leer(int pos)
 
     return obj;
 
+}
+
+int ArchivoMesa :: buscar(int numeroMesa)
+{
+    int cantidadRegistros = getCantidadRegistros();
+    Mesa obj;
+
+    for(int i = 0; i < cantidadRegistros; i++)
+    {
+        obj = leer(i);
+        if(obj.getNumeroMesa() == numeroMesa)
+        {
+            return i;
+        }
+    }
+
+    return -1;
 }

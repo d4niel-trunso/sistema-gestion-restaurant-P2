@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdio>
-#include "menuManager.h"
+#include <cstdlib>
+#include "menu.h"
 
 using namespace std;
 
@@ -10,15 +11,15 @@ Menu::Menu(){
 
 void Menu::iniciar(){
     int opcion;
-    MenuManager menuMan;
-    menuMan.mostrarBienvenida();
 
     do{
         system("cls");
+        antesDeMostrar();
         mostrarOpciones();
         opcion = seleccionarOpcion();
+        system("cls");
         ejecutarOpcion(opcion);
-        system("pause");
+        despuesDeEjecutar(opcion);
     }while(opcion != 0);
 }
 
@@ -43,4 +44,14 @@ void Menu::setCantidadOpciones(int cantidad){
 
 int Menu::getCantidadOpciones(){
     return _cantidadOpciones;
+}
+
+void Menu::antesDeMostrar(){
+}
+
+void Menu::despuesDeEjecutar(int opcion){
+    if(opcion != 0){
+        cout << endl;
+        system("pause");
+    }
 }

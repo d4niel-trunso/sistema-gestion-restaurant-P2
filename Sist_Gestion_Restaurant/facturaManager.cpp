@@ -5,60 +5,52 @@
 
 using namespace std;
 
+FacturaManager::FacturaManager()
+{
+    setCantidadOpciones(4);
+}
+
+void FacturaManager::mostrarOpciones(){
+    rlutil::setBackgroundColor(rlutil::CYAN);
+    rlutil::setColor(rlutil::BLACK);
+    rlutil::cls();
+
+    cout << "-------- MENU DE FACTURACION --------" << endl;
+    cout << "                                     " << endl;
+    cout << "1. EMITIR NUEVA FACTURA              " << endl;
+    cout << "2. LISTAR TODAS LAS FACTURAS         " << endl;
+    cout << "3. BUSCAR FACTURA POR ID             " << endl;
+    cout << "4. ANULAR FACTURA                    " << endl;
+    cout << "                                     " << endl;
+    cout << "0. VOLVER AL MENU PRINCIPAL          " << endl;
+    cout << "                                     " << endl;
+    cout << "-------------------------------------" << endl;
+}
+
+void FacturaManager::ejecutarOpcion(int opcion){
+    switch(opcion){
+        case 1:
+            cout << "=== EMISION DE FACTURA ===" << endl;
+            emitirFactura();
+            break;
+        case 2:
+            cout << "=== LISTADO DE FACTURAS ===" << endl;
+            listarFacturas();
+            break;
+        case 3:
+            cout << "En construccion: buscar factura..." << endl;
+            break;
+        case 4:
+            cout << "En construccion: anular factura..." << endl;
+            break;
+        case 0:
+            cout << "Volviendo al menu principal..." << endl;
+            break;
+    }
+}
+
 void FacturaManager::menuFacturacion(){
-    int opcion;
-
-    do{
-        rlutil::setBackgroundColor(rlutil::CYAN);
-        rlutil::setColor(rlutil::BLACK);
-        rlutil::cls();
-
-        cout << "-------- MENU DE FACTURACION --------" << endl;
-        cout << "                                     " << endl;
-        cout << "1. EMITIR NUEVA FACTURA              " << endl;
-        cout << "2. LISTAR TODAS LAS FACTURAS         " << endl;
-        cout << "3. BUSCAR FACTURA POR ID             " << endl;
-        cout << "4. ANULAR FACTURA                    " << endl;
-        cout << "                                     " << endl;
-        cout << "0. VOLVER AL MENU PRINCIPAL          " << endl;
-        cout << "                                     " << endl;
-        cout << "-------------------------------------" << endl;
-        cout << "Seleccione una opcion: ";
-        cin >> opcion;
-
-        rlutil::setBackgroundColor(rlutil::BLACK);
-        rlutil::setColor(rlutil::WHITE);
-        rlutil::cls();
-
-        switch(opcion){
-            case 1:
-                cout << "=== EMISION DE FACTURA ===" << endl;
-                emitirFactura();
-                break;
-            case 2:
-                cout << "=== LISTADO DE FACTURAS ===" << endl;
-                listarFacturas();
-                break;
-            case 3:
-                cout << "En construccion: buscar factura..." << endl;
-                break;
-            case 4:
-                cout << "En construccion: anular factura..." << endl;
-                break;
-            case 0:
-                cout << "Volviendo al menu principal..." << endl;
-                break;
-            default:
-                cout << "Opcion incorrecta!!!" << endl;
-                break;
-        }
-
-        if (opcion != 0){
-            cout << endl;
-            system("pause");
-        }
-
-    }while(opcion != 0);
+    iniciar();
 }
 
 void FacturaManager::listarFacturas(){

@@ -23,7 +23,7 @@ void Mesa ::  setDescripcion(char* descripcion)
 }
 void Mesa ::  setCantidadSillas(int cantidad)
 {
-
+    _cantidadSillas = cantidad;
 }
 void Mesa ::  setUbicacion(int ubicacion)
 {
@@ -81,7 +81,7 @@ void Mesa ::  cargar()
     cout << "INGRESE : ";
     cin >> ubicacion;
 
-    estado = false;
+    estado = true;
 
     setNumeroMesa(numeroMesa);
     setDescripcion(descripcion);
@@ -98,5 +98,5 @@ void Mesa ::  mostrar()
     cout << "DESCRIPCION : " << _descripcion << endl;
     cout << "CANTIDAD DE SILLAS : " << _cantidadSillas << endl;
     cout << "UBICACION : " << _ubicacion << endl;
-    cout << "ESTADO : " << _estado;
+    cout << "ESTADO : " << _estado << endl;
 }

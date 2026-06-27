@@ -38,6 +38,23 @@ bool ArchivoCliente :: guardar(Cliente obj){
     return escribio;
 
 }
+bool ArchivoCliente :: guardar(Cliente obj, int pos){
+
+    FILE *p = fopen(_nombreArchivo,"rb+");
+
+    if(p == nullptr){
+        return false;
+    }
+
+    fseek(p, sizeof(Cliente) * pos,SEEK_SET);
+
+    bool escribio = fwrite(&obj, sizeof(Cliente),1,p);
+
+    fclose(p);
+
+    return escribio;
+
+}
 Cliente ArchivoCliente :: leer(int pos){
 
     Cliente obj;
@@ -56,4 +73,19 @@ Cliente ArchivoCliente :: leer(int pos){
 
     return obj;
 
+}
+
+int ArchivoCliente :: buscar(int id){
+
+    int cantidadRegistros = getCantidadRegistros();
+    Cliente obj;
+
+    for(int i = 0; i < cantidadRegistros; i++){
+        obj = leer(i);
+        if(obj.getIdCliente() == id){
+            return i;
+        }
+    }
+
+    return -1;
 }

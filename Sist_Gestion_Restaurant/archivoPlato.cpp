@@ -39,6 +39,23 @@ bool ArchivoPlato :: guardar(Plato obj){
     return escribio;
 
 }
+bool ArchivoPlato :: guardar(Plato obj, int pos){
+
+    FILE *p = fopen(_nombreArchivo,"rb+");
+
+    if(p == nullptr){
+        return false;
+    }
+
+    fseek(p,sizeof(Plato)*pos,SEEK_SET);
+
+    bool escribio = fwrite(&obj, sizeof(Plato),1,p);
+
+    fclose(p);
+
+    return escribio;
+
+}
 Plato ArchivoPlato :: leer(int pos){
 
     Plato obj;
@@ -57,4 +74,19 @@ Plato ArchivoPlato :: leer(int pos){
 
     return obj;
 
+}
+
+int ArchivoPlato :: buscar(int id){
+
+    int cantidadRegistros = getCantidadRegistros();
+    Plato obj;
+
+    for(int i = 0; i < cantidadRegistros; i++){
+        obj = leer(i);
+        if(obj.getIdPlato() == id){
+            return i;
+        }
+    }
+
+    return -1;
 }

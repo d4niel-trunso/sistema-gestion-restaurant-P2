@@ -72,6 +72,7 @@ void Plato :: cargar(){
 
     setCategoria(categoria);
     setNombre(nombre);
+    setPrecio(precio);
     setEstado(true);
 }
 void Plato :: mostrar(){
@@ -87,7 +88,8 @@ void Plato :: mostrar(){
         break;
         case 3 : cout << "POSTRE";
         break;
-        case 5 : cout << "BEBIDA";
+        case 4 : cout << "BEBIDA";
         break;
     }
+    cout << endl;
 }

@@ -10,5 +10,7 @@ public:
     ArchivoMozo();
     int getCantidadRegistros();
     bool guardar(Mozo obj);
+    bool guardar(Mozo obj, int pos);
     Mozo leer(int pos);
+    int buscar(int id);
 };

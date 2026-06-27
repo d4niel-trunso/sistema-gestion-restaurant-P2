@@ -40,6 +40,23 @@ bool ArchivoMozo :: guardar(Mozo obj){
     return escribio;
 
 }
+bool ArchivoMozo :: guardar(Mozo obj, int pos){
+
+    FILE *p = fopen(_nombreArchivo,"rb+");
+
+    if(p == nullptr){
+        return false;
+    }
+
+    fseek(p,pos * sizeof(Mozo),SEEK_SET);
+
+    bool escribio = fwrite(&obj,sizeof(Mozo),1,p);
+
+    fclose(p);
+
+    return escribio;
+
+}
 Mozo ArchivoMozo :: leer(int pos){
 
     Mozo obj;
@@ -58,4 +75,19 @@ Mozo ArchivoMozo :: leer(int pos){
 
     return obj;
 
+}
+
+int ArchivoMozo :: buscar(int id){
+
+    int cantidadRegistros = getCantidadRegistros();
+    Mozo obj;
+
+    for(int i = 0; i < cantidadRegistros; i++){
+        obj = leer(i);
+        if(obj.getIdMozo() == id){
+            return i;
+        }
+    }
+
+    return -1;
 }

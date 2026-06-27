@@ -4,64 +4,56 @@
 
 using namespace std;
 
+ReservaManager::ReservaManager()
+{
+    setCantidadOpciones(4);
+}
+
+void ReservaManager::mostrarOpciones()
+{
+    rlutil::setBackgroundColor(rlutil::GREEN);
+    rlutil::setColor(rlutil::WHITE);
+    rlutil::cls();
+
+    cout << "-------- MENU DE RESERVAS --------" << endl;
+    cout << "                                  " << endl;
+    cout << "1. NUEVA RESERVA                  " << endl;
+    cout << "2. LISTAR TODAS LAS RESERVAS      " << endl;
+    cout << "3. BUSCAR POR ID                  " << endl;
+    cout << "4. CANCELAR RESERVA               " << endl;
+    cout << "                                  " << endl;
+    cout << "0. VOLVER AL MENU PRINCIPAL       " << endl;
+    cout << "                                  " << endl;
+    cout << "----------------------------------" << endl;
+}
+
+void ReservaManager::ejecutarOpcion(int opcion)
+{
+    switch(opcion)
+    {
+    case 1:
+        cout << "=== RESERVAS ===" << endl;
+        cargar();
+        break;
+    case 2:
+        cout << "=== LISTADO DE RESERVAS ===" << endl;
+        listar();
+        break;
+    case 3:
+        cout << "En construccion..." << endl;
+        break;
+    case 4:
+        cout << "En construccion..." << endl;
+        break;
+    case 0:
+        cout << "Volviendo al menu principal..." << endl;
+        break;
+    }
+}
+
 void ReservaManager::menuReserva()
 {
-    int opcion;
-
-    do
-    {
-        rlutil::setBackgroundColor(rlutil::GREEN);
-        rlutil::setColor(rlutil::WHITE);
-        rlutil::cls();
-
-        cout << "-------- MENU DE RESERVAS --------" << endl;
-        cout << "                                  " << endl;
-        cout << "1. NUEVA RESERVA                  " << endl;
-        cout << "2. LISTAR TODAS LAS RESERVAS      " << endl;
-        cout << "3. BUSCAR POR ID                  " << endl;
-        cout << "4. CANCELAR RESERVA               " << endl;
-        cout << "                                  " << endl;
-        cout << "0. VOLVER AL MENU PRINCIPAL       " << endl;
-        cout << "                                  " << endl;
-        cout << "----------------------------------" << endl;
-        cout << "Seleccione una opcion: ";
-        cin >> opcion;
-
-        rlutil::setBackgroundColor(rlutil::BLACK);
-        rlutil::setColor(rlutil::WHITE);
-        rlutil::cls();
-
-        switch(opcion)
-        {
-        case 1:
-            cout << "=== RESERVAS ===" << endl;
-            cargar();
-            break;
-        case 2:
-            cout << "=== LISTADO DE RESERVAS ===" << endl;
-            listar();
-            break;
-        case 3:
-            cout << "En construccion..." << endl;
-            break;
-        case 4:
-            cout << "En construccion..." << endl;
-            break;
-        case 0:
-            cout << "Volviendo al menu principal..." << endl;
-            break;
-        default:
-            cout << "Opcion incorrecta!!!" << endl;
-            break;
-        }
-
-        if (opcion != 0) {
-            cout << endl;
-            system("pause");
-        }
-
-    }
-    while(opcion != 0);
+    iniciar();
 }
 
 void ReservaManager::cargar()
@@ -127,7 +119,6 @@ void ReservaManager::listar()
         reg.mostrar();
     }
 }
-
 
 bool ReservaManager::existeID(int id)
 {

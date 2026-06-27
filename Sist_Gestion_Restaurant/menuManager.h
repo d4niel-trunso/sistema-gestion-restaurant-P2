@@ -1,6 +1,10 @@
 #pragma once
 
 #include "menu.h"
+#include "mozoManager.h"
+#include "clienteManager.h"
+#include "mesaManager.h"
+#include "platoManager.h"
 #include "reservaManager.h"
 #include "facturaManager.h"
 
@@ -12,6 +16,10 @@ public:
     void ejecutarOpcion(int opcion);
 
 private:
+    MozoManager _mozoManager;
+    ClienteManager _clienteManager;
+    MesaManager _mesaManager;
+    PlatoManager _platoManager;
     ReservaManager _reservaManager;
     FacturaManager _facturaManager;
 };

@@ -7,6 +7,8 @@ private:
 protected:
     void setCantidadOpciones(int cantidad);
     int getCantidadOpciones();
+    virtual void antesDeMostrar();
+    virtual void despuesDeEjecutar(int opcion);
 
 public:
     Menu();

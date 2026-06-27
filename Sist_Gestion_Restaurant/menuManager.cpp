@@ -14,9 +14,8 @@ void MenuManager::mostrarBienvenida(){
     rlutil::setColor(rlutil::WHITE);
     rlutil::cls();
     rlutil::locate(30, 9);
-    cout << "¡¡¡¡BIENVENIDOS!!!!" << endl << endl << endl;
+    cout << "BIENVENIDOS!!!!" << endl << endl << endl;
     system("pause");
-
 }
 
 void MenuManager::mostrarOpciones(){
@@ -39,26 +38,24 @@ void MenuManager::mostrarOpciones(){
 }
 
 void MenuManager::ejecutarOpcion(int opcion){
-    system("cls");
-
     switch(opcion){
     case 1:
-        cout << "En construccion..." << endl;
+        _mozoManager.iniciar();
         break;
     case 2:
-        cout << "En construccion..." << endl;
+        _clienteManager.iniciar();
         break;
     case 3:
-        cout << "En construccion..." << endl;
+        _mesaManager.iniciar();
         break;
     case 4:
-        cout << "En construccion..." << endl;
+        _platoManager.iniciar();
         break;
     case 5:
-        _reservaManager.menuReserva();
+        _reservaManager.iniciar();
         break;
     case 6:
-        _facturaManager.menuFacturacion();
+        _facturaManager.iniciar();
         break;
     case 0:
         cout << "Gracias por usar la app...." << endl;

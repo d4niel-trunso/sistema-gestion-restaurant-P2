@@ -10,5 +10,7 @@ public:
     ArchivoCliente();
     int getCantidadRegistros();
     bool guardar(Cliente obj);
+    bool guardar(Cliente obj, int pos);
     Cliente leer(int pos);
+    int buscar(int id);
 };
