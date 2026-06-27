@@ -6,7 +6,7 @@
 using namespace std;
 
 MenuManager::MenuManager(){
-    setCantidadOpciones(6);
+    setCantidadOpciones(7);
 }
 
 void MenuManager::mostrarBienvenida(){
@@ -31,6 +31,7 @@ void MenuManager::mostrarOpciones(){
     cout << "4. PLATOS                       " << endl;
     cout << "5. RESERVAS                     " << endl;
     cout << "6. FACTURAS                     " << endl;
+    cout << "7. INFORMES                     " << endl;
     cout << "                                " << endl;
     cout << "0. SALIR                        " << endl;
     cout << "                                " << endl;
@@ -56,6 +57,9 @@ void MenuManager::ejecutarOpcion(int opcion){
         break;
     case 6:
         _facturaManager.iniciar();
+        break;
+    case 7:
+        _informeManager.iniciar();
         break;
     case 0:
         cout << "Gracias por usar la app...." << endl;

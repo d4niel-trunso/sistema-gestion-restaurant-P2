@@ -7,6 +7,7 @@
 #include "platoManager.h"
 #include "reservaManager.h"
 #include "facturaManager.h"
+#include "informeManager.h"
 
 class MenuManager: public Menu{
 public:
@@ -22,4 +23,5 @@ private:
     PlatoManager _platoManager;
     ReservaManager _reservaManager;
     FacturaManager _facturaManager;
+    InformeManager _informeManager;
 };

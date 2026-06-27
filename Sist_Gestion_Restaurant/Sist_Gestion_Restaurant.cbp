@@ -58,6 +58,8 @@
 		<Unit filename="facturaManager.h" />
 		<Unit filename="fecha.cpp" />
 		<Unit filename="fecha.h" />
+		<Unit filename="informeManager.cpp" />
+		<Unit filename="informeManager.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="menu.cpp" />
 		<Unit filename="menu.h" />

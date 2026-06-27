@@ -39,6 +39,23 @@ bool ArchivoDetalleFactura :: guardar(DetalleFactura obj){
     return escribio;
 
 }
+bool ArchivoDetalleFactura :: guardar(DetalleFactura obj, int pos){
+
+    FILE* p = fopen(_nombreArchivo,"rb+");
+
+    if(p == nullptr){
+        return false;
+    }
+
+    fseek(p,pos * sizeof(DetalleFactura),SEEK_SET);
+
+    bool escribio = fwrite(&obj,sizeof(DetalleFactura),1,p);
+
+    fclose(p);
+
+    return escribio;
+
+}
 DetalleFactura ArchivoDetalleFactura :: leer(int pos){
 
     DetalleFactura obj;
@@ -57,4 +74,19 @@ DetalleFactura ArchivoDetalleFactura :: leer(int pos){
 
     return obj;
 
+}
+
+int ArchivoDetalleFactura :: buscar(int idDetalle){
+
+    int cantidadRegistros = getCantidadRegistros();
+    DetalleFactura obj;
+
+    for(int i = 0; i < cantidadRegistros; i++){
+        obj = leer(i);
+        if(obj.getIdDetalle() == idDetalle){
+            return i;
+        }
+    }
+
+    return -1;
 }
