@@ -4,6 +4,7 @@ using namespace std;
 
 #include "mozo.h"
 #include "fecha.h"
+#include "inputUtils.h"
 
 Mozo :: Mozo()
 {
@@ -58,36 +59,23 @@ void Mozo :: cargar(){
     char email [50];
     int turno;
 
-    int dia;
-    int mes;
-    int anio;
-
-    Fecha fechaNacimiento;
-
     cout << "INGRESE LA INFORMACION DEL MOZO.." << endl;
 
     Persona :: cargar();
 
-    cout << "EMAIL : ";
-    cin >> email;
+    leerCadena("EMAIL : ", email, 50);
 
-    cout << "SELECCIONE EL TURNO.. ";
+    cout << "SELECCIONE EL TURNO.. " << endl;
     cout << "1/ Maniana" << endl;
     cout << "2/ Tarde" << endl;
-    cout << "3/ Noche";
-    cin >> turno;
+    cout << "3/ Noche" << endl;
+    turno = leerEnteroEnRango("INGRESE : ", 1, 3);
 
-    cout << "FECHA DE NACIMIENTO..."<<endl;
-    cout << "DIA : ";
-    cin >> dia;
-    cout << "MES : ";
-    cin >> mes;
-    cout << "ANIO : ";
-    cin >> anio;
+    Fecha fechaNacimiento = leerFecha("FECHA DE NACIMIENTO");
 
     setEmail(email);
     setTurno(turno);
-    setFechaNacimiento(dia,mes,anio);
+    setFechaNacimiento(fechaNacimiento.getDia(), fechaNacimiento.getMes(), fechaNacimiento.getAnio());
 
 }
 void Mozo :: mostrar(){
@@ -106,6 +94,7 @@ void Mozo :: mostrar(){
         break;
     }
 
+    cout << endl;
     cout << "FECHA DE NACIMIENTO : " << _fechaNacimiento.toString("DD/MM/YYYY") << endl;
 
 }

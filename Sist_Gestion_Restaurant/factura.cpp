@@ -103,7 +103,9 @@ void Factura::mostrar()
     if(_estado)
     {
         cout << "==========================================" << endl;
-        cout << "Factura Nro: " << _idFactura << " | Mesa: " << _numeroMesa << " | Mozo ID: " << _idMozo << endl;
+        cout << "Factura Nro: " << _idFactura << endl;
+        cout << "Mesa Nro: " << _numeroMesa << endl;
+        cout << "Mozo ID: " << _idMozo << endl;
         cout << "Fecha: " << _fechaFactura.toString() << endl;
         cout << "Forma de Pago: ";
         switch(_formaPago)

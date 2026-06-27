@@ -17,6 +17,7 @@ private:
     bool existeReservaActiva(int numeroMesa, Fecha fecha, int horaReserva);
     bool mismaFecha(Fecha a, Fecha b);
     void listarReserva(Reserva reserva);
+    void mostrarReservaConDatos(Reserva reserva);
 
 public:
     ReservaManager();

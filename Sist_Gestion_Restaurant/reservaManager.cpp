@@ -1,8 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <cstring>
 #include "reservaManager.h"
 #include "rlutil.h"
+#include "inputUtils.h"
 
 using namespace std;
 
@@ -83,7 +85,6 @@ void ReservaManager::cargar()
     int idReserva;
     int idCliente;
     int numeroMesa;
-    int dia, mes, anio;
     int horaReserva;
     int cantidadComensales;
     int estadoReserva;
@@ -95,44 +96,25 @@ void ReservaManager::cargar()
 
     cout << "ID Reserva: " << idReserva << endl;
 
-    cout << "ID Cliente: ";
-    cin >> idCliente;
+    idCliente = leerEntero("ID Cliente: ");
 
     if(!clienteActivo(idCliente)){
         cout << "No existe un cliente activo con ese ID." << endl;
         return;
     }
 
-    cout << "Numero Mesa: ";
-    cin >> numeroMesa;
+    numeroMesa = leerEntero("Numero Mesa: ");
 
     if(!mesaActiva(numeroMesa)){
         cout << "No existe una mesa activa con ese numero." << endl;
         return;
     }
 
-    cout << "Fecha de la Reserva (dia mes anio): ";
-    cin >> dia;
-    cin >> mes;
-    cin >> anio;
+    Fecha f = leerFecha("Fecha de la Reserva");
 
-    Fecha f(dia, mes, anio);
+    horaReserva = leerEnteroEnRango("Hora de la Reserva (ej. 21 para 21:00hs): ", 0, 23);
 
-    cout << "Hora de la Reserva (ej. 21 para 21:00hs): ";
-    cin >> horaReserva;
-
-    if(horaReserva < 0 || horaReserva > 23){
-        cout << "La hora debe estar entre 0 y 23." << endl;
-        return;
-    }
-
-    cout << "Cantidad de Comensales: ";
-    cin >> cantidadComensales;
-
-    if(cantidadComensales <= 0){
-        cout << "La cantidad de comensales debe ser mayor a 0." << endl;
-        return;
-    }
+    cantidadComensales = leerEnteroEnRango("Cantidad de Comensales: ", 1, 100);
 
     if(existeReservaActiva(numeroMesa, f, horaReserva)){
         cout << "Ya existe una reserva activa para esa mesa, fecha y hora." << endl;
@@ -165,7 +147,7 @@ void ReservaManager::listar()
     {
         Reserva reg = _archivo.leer(i);
         if(reg.getEstado()){
-            reg.mostrar();
+            mostrarReservaConDatos(reg);
             encontro = true;
         }
     }
@@ -179,8 +161,7 @@ void ReservaManager::buscarPorID()
 {
     int id;
 
-    cout << "ID Reserva: ";
-    cin >> id;
+    id = leerEntero("ID Reserva: ");
 
     int pos = _archivo.buscar(id);
 
@@ -196,8 +177,7 @@ void ReservaManager::cancelarReserva()
 {
     int id;
 
-    cout << "ID Reserva a cancelar: ";
-    cin >> id;
+    id = leerEntero("ID Reserva a cancelar: ");
 
     int pos = _archivo.buscar(id);
 
@@ -249,7 +229,7 @@ void ReservaManager::listarPorFecha()
     }
 
     for(int i = 0; i < (int)reservas.size(); i++){
-        reservas[i].mostrar();
+        mostrarReservaConDatos(reservas[i]);
     }
 }
 
@@ -275,24 +255,20 @@ void ReservaManager::listarPorEstado()
     }
 
     for(int i = 0; i < (int)reservas.size(); i++){
-        reservas[i].mostrar();
+        mostrarReservaConDatos(reservas[i]);
     }
 }
 
 void ReservaManager::consultarPorFecha()
 {
-    int dia, mes, anio;
     bool encontro = false;
 
-    cout << "Fecha a consultar (dia mes anio): ";
-    cin >> dia >> mes >> anio;
-
-    Fecha fecha(dia, mes, anio);
+    Fecha fecha = leerFecha("Fecha a consultar");
 
     for(int i = 0; i < _archivo.getCantidadRegistros(); i++){
         Reserva reserva = _archivo.leer(i);
         if(reserva.getEstado() && mismaFecha(reserva.getFechaReserva(), fecha)){
-            reserva.mostrar();
+            mostrarReservaConDatos(reserva);
             encontro = true;
         }
     }
@@ -307,13 +283,12 @@ void ReservaManager::consultarPorCliente()
     int idCliente;
     bool encontro = false;
 
-    cout << "ID Cliente: ";
-    cin >> idCliente;
+    idCliente = leerEntero("ID Cliente: ");
 
     for(int i = 0; i < _archivo.getCantidadRegistros(); i++){
         Reserva reserva = _archivo.leer(i);
         if(reserva.getEstado() && reserva.getIdCliente() == idCliente){
-            reserva.mostrar();
+            mostrarReservaConDatos(reserva);
             encontro = true;
         }
     }
@@ -328,13 +303,12 @@ void ReservaManager::consultarPorEstado()
     int estadoReserva;
     bool encontro = false;
 
-    cout << "Estado (1-Pendiente, 2-Completada, 3-Cancelada): ";
-    cin >> estadoReserva;
+    estadoReserva = leerEnteroEnRango("Estado (1-Pendiente, 2-Completada, 3-Cancelada): ", 1, 3);
 
     for(int i = 0; i < _archivo.getCantidadRegistros(); i++){
         Reserva reserva = _archivo.leer(i);
         if(reserva.getEstado() && reserva.getEstadoReserva() == estadoReserva){
-            reserva.mostrar();
+            mostrarReservaConDatos(reserva);
             encontro = true;
         }
     }
@@ -404,8 +378,61 @@ bool ReservaManager::mismaFecha(Fecha a, Fecha b)
 void ReservaManager::listarReserva(Reserva reserva)
 {
     if(reserva.getEstado()){
-        reserva.mostrar();
+        mostrarReservaConDatos(reserva);
     }else{
         cout << "La reserva esta dada de baja." << endl;
     }
+}
+
+void ReservaManager::mostrarReservaConDatos(Reserva reserva)
+{
+    if(!reserva.getEstado())
+    {
+        return;
+    }
+
+    cout << "-----------------------------------------" << endl;
+    cout << "Reserva #" << reserva.getIdReserva() << endl;
+
+    int posCliente = _archivoCliente.buscar(reserva.getIdCliente());
+    cout << "Cliente: ";
+    if(posCliente >= 0)
+    {
+        Cliente cliente = _archivoCliente.leer(posCliente);
+        cout << cliente.getApellido() << ", " << cliente.getNombre()
+             << " (ID " << reserva.getIdCliente() << ")";
+    }
+    else
+    {
+        cout << "No encontrado (ID " << reserva.getIdCliente() << ")";
+    }
+    cout << endl;
+
+    int posMesa = _archivoMesa.buscar(reserva.getNumeroMesa());
+    cout << "Mesa: " << reserva.getNumeroMesa();
+    if(posMesa >= 0)
+    {
+        Mesa mesa = _archivoMesa.leer(posMesa);
+        cout << " - " << mesa.getDescripcion() << " - ";
+        switch(mesa.getUbicacion())
+        {
+            case 1: cout << "Interior"; break;
+            case 2: cout << "Terraza"; break;
+            default: cout << "Ubicacion desconocida"; break;
+        }
+    }
+    cout << endl;
+
+    cout << "Fecha: " << reserva.getFechaReserva().toString() << endl;
+    cout << "Hora: " << reserva.getHoraReserva() << ":00hs" << endl;
+    cout << "Comensales: " << reserva.getCantidadComensales() << endl;
+    cout << "Estado de la reserva: ";
+    switch(reserva.getEstadoReserva())
+    {
+        case 1: cout << "PENDIENTE"; break;
+        case 2: cout << "COMPLETADA"; break;
+        case 3: cout << "CANCELADA"; break;
+        default: cout << "DESCONOCIDO"; break;
+    }
+    cout << endl;
 }

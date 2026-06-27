@@ -1,10 +1,13 @@
 #include <iostream>
 #include "menuManager.h"
+#include "inputUtils.h"
 
 using namespace std;
 
 int main()
 {
+    configurarConsola();
+
     MenuManager miMenu;
 
     miMenu.mostrarBienvenida();

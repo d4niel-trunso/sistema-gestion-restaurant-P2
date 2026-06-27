@@ -4,6 +4,7 @@
 #include <algorithm>
 #include "facturaManager.h"
 #include "rlutil.h"
+#include "inputUtils.h"
 
 using namespace std;
 
@@ -107,7 +108,6 @@ void FacturaManager::emitirFactura(){
     int idFactura;
     int numeroMesa;
     int idMozo;
-    int dia, mes, anio;
     int formaPago;
     float importeTotal;
     float montoAbonado;
@@ -120,36 +120,23 @@ void FacturaManager::emitirFactura(){
 
     cout << "ID Factura: " << idFactura << endl;
 
-    cout << "Numero Mesa: ";
-    cin >> numeroMesa;
+    numeroMesa = leerEntero("Numero Mesa: ");
 
     if(!mesaActiva(numeroMesa)){
         cout << "No existe una mesa activa con ese numero." << endl;
         return;
     }
 
-    cout << "ID Mozo: ";
-    cin >> idMozo;
+    idMozo = leerEntero("ID Mozo: ");
 
     if(!mozoActivo(idMozo)){
         cout << "No existe un mozo activo con ese ID." << endl;
         return;
     }
 
-    cout << "Fecha de la Factura (dia mes anio): ";
-    cin >> dia;
-    cin >> mes;
-    cin >> anio;
+    Fecha f = leerFecha("Fecha de la Factura");
 
-    Fecha f(dia, mes, anio);
-
-    cout << "Forma de Pago (1-Efectivo, 2-Tarjeta, 3-App): ";
-    cin >> formaPago;
-
-    if(formaPago < 1 || formaPago > 3){
-        cout << "Forma de pago invalida." << endl;
-        return;
-    }
+    formaPago = leerEnteroEnRango("Forma de Pago (1-Efectivo, 2-Tarjeta, 3-App): ", 1, 3);
 
     cout << "Ingrese los detalles de consumo:" << endl;
 
@@ -159,8 +146,7 @@ void FacturaManager::emitirFactura(){
     }
 
     cout << "Importe total calculado: $" << importeTotal << endl;
-    cout << "Monto abonado: $";
-    cin >> montoAbonado;
+    montoAbonado = leerFloatMinimo("Monto abonado: $", 0);
 
     if(montoAbonado < importeTotal){
         cout << "El monto abonado no puede ser menor al importe total." << endl;
@@ -185,8 +171,7 @@ void FacturaManager::emitirFactura(){
 void FacturaManager::buscarFacturaPorID(){
     int idFactura;
 
-    cout << "ID Factura: ";
-    cin >> idFactura;
+    idFactura = leerEntero("ID Factura: ");
 
     int pos = _archivo.buscarPosicion(idFactura);
 
@@ -209,8 +194,7 @@ void FacturaManager::anularFactura(){
     int idFactura;
     int confirmar;
 
-    cout << "ID Factura a anular: ";
-    cin >> idFactura;
+    idFactura = leerEntero("ID Factura a anular: ");
 
     int pos = _archivo.buscarPosicion(idFactura);
 
@@ -228,8 +212,7 @@ void FacturaManager::anularFactura(){
 
     mostrarFacturaConDetalles(factura);
 
-    cout << "Confirma anulacion? (1-SI / 0-NO): ";
-    cin >> confirmar;
+    confirmar = leerEnteroEnRango("Confirma anulacion? (1-SI / 0-NO): ", 0, 1);
 
     if(confirmar != 1){
         cout << "Anulacion cancelada." << endl;
@@ -297,18 +280,10 @@ void FacturaManager::listarPorMesa(){
 }
 
 void FacturaManager::consultarPorRangoFechas(){
-    int diaDesde, mesDesde, anioDesde;
-    int diaHasta, mesHasta, anioHasta;
     bool encontro = false;
 
-    cout << "Fecha desde (dia mes anio): ";
-    cin >> diaDesde >> mesDesde >> anioDesde;
-
-    cout << "Fecha hasta (dia mes anio): ";
-    cin >> diaHasta >> mesHasta >> anioHasta;
-
-    Fecha desde(diaDesde, mesDesde, anioDesde);
-    Fecha hasta(diaHasta, mesHasta, anioHasta);
+    Fecha desde = leerFecha("Fecha desde");
+    Fecha hasta = leerFecha("Fecha hasta");
 
     if(desde.toNumero() > hasta.toNumero()){
         cout << "El rango de fechas es invalido." << endl;
@@ -333,8 +308,7 @@ void FacturaManager::consultarPorMesa(){
     int numeroMesa;
     bool encontro = false;
 
-    cout << "Numero de mesa: ";
-    cin >> numeroMesa;
+    numeroMesa = leerEntero("Numero de mesa: ");
 
     for(int i = 0; i < _archivo.getCantidadRegistros(); i++){
         Factura factura = _archivo.leer(i);
@@ -353,8 +327,7 @@ void FacturaManager::consultarPorMozo(){
     int idMozo;
     bool encontro = false;
 
-    cout << "ID Mozo: ";
-    cin >> idMozo;
+    idMozo = leerEntero("ID Mozo: ");
 
     for(int i = 0; i < _archivo.getCantidadRegistros(); i++){
         Factura factura = _archivo.leer(i);
@@ -393,6 +366,31 @@ bool FacturaManager::mozoActivo(int idMozo){
 
 void FacturaManager::mostrarFacturaConDetalles(Factura factura){
     factura.mostrar();
+
+    int posMozo = _archivoMozo.buscar(factura.getIdMozo());
+    cout << "Mozo: ";
+    if(posMozo >= 0){
+        Mozo mozo = _archivoMozo.leer(posMozo);
+        cout << mozo.getApellido() << ", " << mozo.getNombre()
+             << " (ID " << factura.getIdMozo() << ")";
+    }else{
+        cout << "No encontrado (ID " << factura.getIdMozo() << ")";
+    }
+    cout << endl;
+
+    int posMesa = _archivoMesa.buscar(factura.getNumeroMesa());
+    cout << "Mesa: " << factura.getNumeroMesa();
+    if(posMesa >= 0){
+        Mesa mesa = _archivoMesa.leer(posMesa);
+        cout << " - " << mesa.getDescripcion() << " - ";
+        switch(mesa.getUbicacion()){
+            case 1: cout << "Interior"; break;
+            case 2: cout << "Terraza"; break;
+            default: cout << "Ubicacion desconocida"; break;
+        }
+    }
+    cout << endl;
+
     cout << "Detalle de consumo:" << endl;
     _detalleManager.listarPorFactura(factura.getIdFactura());
 }

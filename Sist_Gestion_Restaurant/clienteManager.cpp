@@ -4,6 +4,7 @@
 #include "cliente.h"
 #include "clienteManager.h"
 #include "rlutil.h"
+#include "inputUtils.h"
 
 using namespace std;
 
@@ -85,8 +86,7 @@ void ClienteManager :: modificarCliente()
     ArchivoCliente objArchivoCliente;
     int idCliente;
 
-    cout << "INGRESE ID DEL CLIENTE A MODIFICAR: ";
-    cin >> idCliente;
+    idCliente = leerEntero("INGRESE ID DEL CLIENTE A MODIFICAR: ");
 
     int pos = objArchivoCliente.buscar(idCliente);
     if(pos < 0)
@@ -124,8 +124,7 @@ void ClienteManager :: bajaCliente()
     ArchivoCliente objArchivoCliente;
     int idCliente;
 
-    cout << "INGRESE ID DEL CLIENTE A DAR DE BAJA: ";
-    cin >> idCliente;
+    idCliente = leerEntero("INGRESE ID DEL CLIENTE A DAR DE BAJA: ");
 
     int pos = objArchivoCliente.buscar(idCliente);
     if(pos < 0)
@@ -231,8 +230,7 @@ void ClienteManager :: consultaPorDni()
     int cantidadRegistros = objArchivoCliente.getCantidadRegistros();
     char dni[15];
 
-    cout << "INGRESE EL DNI : ";
-    cin >> dni;
+    leerCadena("INGRESE EL DNI : ", dni, 15);
 
     for(int i = 0; i < cantidadRegistros; i++)
     {
@@ -255,8 +253,7 @@ void ClienteManager :: consultaPorVip()
     char dni[15];
     int cant = objArchivoCliente.getCantidadRegistros();
 
-    cout << "INGRESE EL DNI: ";
-    cin >> dni;
+    leerCadena("INGRESE EL DNI: ", dni, 15);
 
     for(int i = 0; i < cant; i++)
     {

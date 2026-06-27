@@ -2,6 +2,7 @@
 #include <cstring>
 using namespace std;
 #include "mesa.h"
+#include "inputUtils.h"
 
 Mesa :: Mesa()
 {
@@ -66,20 +67,16 @@ void Mesa ::  cargar()
     bool estado;
 
     cout << "INGRESAR LA INFORMACION DE LA MESA.." << endl;
-    cout << "NUMERO DE MESA : ";
-    cin >> numeroMesa;
+    numeroMesa = leerEntero("NUMERO DE MESA : ");
 
-    cout << "DESCRIPCION : ";
-    cin >> descripcion;
+    leerCadena("DESCRIPCION : ", descripcion, 50);
 
-    cout << "CANTIDAD DE SILLAS : ";
-    cin >> cantidadSillas;
+    cantidadSillas = leerEnteroEnRango("CANTIDAD DE SILLAS : ", 1, 50);
 
     cout << "UBICACION..." << endl;
     cout << "1/INTERIOR " << endl;
     cout << "2/TERRAZA " << endl;
-    cout << "INGRESE : ";
-    cin >> ubicacion;
+    ubicacion = leerEnteroEnRango("INGRESE : ", 1, 2);
 
     estado = true;
 
@@ -93,10 +90,18 @@ void Mesa ::  cargar()
 void Mesa ::  mostrar()
 {
 
+    cout << "-----------------------------------------" << endl;
     cout << "MOSTRANDO INFORMACION DE LA MESA.."<< endl;
     cout << "NUMERO DE MESA : " << _numeroMesa <<endl;
     cout << "DESCRIPCION : " << _descripcion << endl;
     cout << "CANTIDAD DE SILLAS : " << _cantidadSillas << endl;
-    cout << "UBICACION : " << _ubicacion << endl;
-    cout << "ESTADO : " << _estado << endl;
+    cout << "UBICACION : ";
+    switch(_ubicacion)
+    {
+        case 1: cout << "INTERIOR"; break;
+        case 2: cout << "TERRAZA"; break;
+        default: cout << "DESCONOCIDA"; break;
+    }
+    cout << endl;
+    cout << "ESTADO : " << (_estado ? "ACTIVA" : "INACTIVA") << endl;
 }

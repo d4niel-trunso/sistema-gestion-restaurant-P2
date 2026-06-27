@@ -1,5 +1,6 @@
 #include <iostream>
 #include "detalleFacturaManager.h"
+#include "inputUtils.h"
 
 using namespace std;
 
@@ -28,35 +29,28 @@ bool DetalleFacturaManager::cargarDetallesFactura(int idFactura, vector<DetalleF
     importeTotal = 0;
 
     while(continuar == 1){
-        cout << "ID Plato: ";
-        cin >> idPlato;
+        idPlato = leerEntero("ID Plato: ");
 
         if(!platoActivo(idPlato, plato)){
             cout << "No existe un plato activo con ese ID." << endl;
         }else{
-            cout << "Cantidad: ";
-            cin >> cantidad;
+            cantidad = leerEnteroEnRango("Cantidad: ", 1, 1000);
 
-            if(cantidad <= 0){
-                cout << "La cantidad debe ser mayor a 0." << endl;
-            }else{
-                DetalleFactura detalle;
-                detalle.setIdDetalle(generarID(detalles.size()));
-                detalle.setIdFactura(idFactura);
-                detalle.setIdPlato(idPlato);
-                detalle.setCantidad(cantidad);
-                detalle.setPrecioUnitario(plato.getPrecio());
-                detalle.setEstado(true);
+            DetalleFactura detalle;
+            detalle.setIdDetalle(generarID(detalles.size()));
+            detalle.setIdFactura(idFactura);
+            detalle.setIdPlato(idPlato);
+            detalle.setCantidad(cantidad);
+            detalle.setPrecioUnitario(plato.getPrecio());
+            detalle.setEstado(true);
 
-                detalles.push_back(detalle);
-                importeTotal += cantidad * plato.getPrecio();
+            detalles.push_back(detalle);
+            importeTotal += cantidad * plato.getPrecio();
 
-                cout << "Detalle agregado. Subtotal: $" << cantidad * plato.getPrecio() << endl;
-            }
+            cout << "Detalle agregado. Subtotal: $" << cantidad * plato.getPrecio() << endl;
         }
 
-        cout << "Agregar otro plato? (1-SI / 0-NO): ";
-        cin >> continuar;
+        continuar = leerEnteroEnRango("Agregar otro plato? (1-SI / 0-NO): ", 0, 1);
     }
 
     return detalles.size() > 0;
@@ -79,7 +73,19 @@ void DetalleFacturaManager::listarPorFactura(int idFactura){
     for(int i = 0; i < cantidad; i++){
         DetalleFactura detalle = _archivo.leer(i);
         if(detalle.getEstado() && detalle.getIdFactura() == idFactura){
-            detalle.mostrar();
+            Plato plato;
+            cout << "-----------------------------------------" << endl;
+            cout << "Detalle #" << detalle.getIdDetalle() << endl;
+            cout << "Plato: ";
+            if(platoActivo(detalle.getIdPlato(), plato)){
+                cout << plato.getNombre() << " (ID " << detalle.getIdPlato() << ")";
+            }else{
+                cout << "No encontrado (ID " << detalle.getIdPlato() << ")";
+            }
+            cout << endl;
+            cout << "Cantidad: " << detalle.getCantidad() << endl;
+            cout << "Precio unitario: $" << detalle.getPrecioUnitario() << endl;
+            cout << "Subtotal: $" << detalle.getCantidad() * detalle.getPrecioUnitario() << endl;
             encontro = true;
         }
     }

@@ -3,6 +3,7 @@
 #include <cstring>
 #include "informeManager.h"
 #include "rlutil.h"
+#include "inputUtils.h"
 
 using namespace std;
 
@@ -10,6 +11,16 @@ struct VentaPlato{
     int idPlato;
     int cantidad;
 };
+
+static const char* nombreCategoria(int categoria){
+    switch(categoria){
+        case 1: return "Entrada";
+        case 2: return "Principal";
+        case 3: return "Postre";
+        case 4: return "Bebida";
+        default: return "Desconocida";
+    }
+}
 
 InformeManager::InformeManager(){
     setCantidadOpciones(5);
@@ -61,13 +72,9 @@ void InformeManager::menuInformes(){
 }
 
 void InformeManager::recaudacionPorDia(){
-    int dia, mes, anio;
     float total = 0;
 
-    cout << "Fecha (dia mes anio): ";
-    cin >> dia >> mes >> anio;
-
-    Fecha fecha(dia, mes, anio);
+    Fecha fecha = leerFecha("Fecha");
 
     for(int i = 0; i < _archivoFactura.getCantidadRegistros(); i++){
         Factura factura = _archivoFactura.leer(i);
@@ -80,18 +87,10 @@ void InformeManager::recaudacionPorDia(){
 }
 
 void InformeManager::recaudacionPorPeriodo(){
-    int diaDesde, mesDesde, anioDesde;
-    int diaHasta, mesHasta, anioHasta;
     float total = 0;
 
-    cout << "Fecha desde (dia mes anio): ";
-    cin >> diaDesde >> mesDesde >> anioDesde;
-
-    cout << "Fecha hasta (dia mes anio): ";
-    cin >> diaHasta >> mesHasta >> anioHasta;
-
-    Fecha desde(diaDesde, mesDesde, anioDesde);
-    Fecha hasta(diaHasta, mesHasta, anioHasta);
+    Fecha desde = leerFecha("Fecha desde");
+    Fecha hasta = leerFecha("Fecha hasta");
 
     if(desde.toNumero() > hasta.toNumero()){
         cout << "El rango de fechas es invalido." << endl;
@@ -150,9 +149,17 @@ void InformeManager::platosMasVendidos(){
     cout << "Platos mas vendidos:" << endl;
     for(int i = 0; i < (int)ventas.size(); i++){
         if(ventas[i].cantidad == mayor){
-            char nombre[50];
-            obtenerNombrePlato(ventas[i].idPlato, nombre);
-            cout << "ID Plato: " << ventas[i].idPlato << " | Nombre: " << nombre << " | Cantidad: " << ventas[i].cantidad << endl;
+            int posPlato = _archivoPlato.buscar(ventas[i].idPlato);
+            if(posPlato >= 0){
+                Plato plato = _archivoPlato.leer(posPlato);
+                cout << "Plato: " << plato.getNombre()
+                     << " | Categoria: " << nombreCategoria(plato.getCategoria())
+                     << " | ID: " << ventas[i].idPlato
+                     << " | Cantidad: " << ventas[i].cantidad << endl;
+            }else{
+                cout << "Plato no encontrado | ID: " << ventas[i].idPlato
+                     << " | Cantidad: " << ventas[i].cantidad << endl;
+            }
         }
     }
 }
@@ -198,9 +205,17 @@ void InformeManager::platoMenosVendido(){
     cout << "Plato menos vendido (solo platos vendidos al menos una vez):" << endl;
     for(int i = 0; i < (int)ventas.size(); i++){
         if(ventas[i].cantidad == menor){
-            char nombre[50];
-            obtenerNombrePlato(ventas[i].idPlato, nombre);
-            cout << "ID Plato: " << ventas[i].idPlato << " | Nombre: " << nombre << " | Cantidad: " << ventas[i].cantidad << endl;
+            int posPlato = _archivoPlato.buscar(ventas[i].idPlato);
+            if(posPlato >= 0){
+                Plato plato = _archivoPlato.leer(posPlato);
+                cout << "Plato: " << plato.getNombre()
+                     << " | Categoria: " << nombreCategoria(plato.getCategoria())
+                     << " | ID: " << ventas[i].idPlato
+                     << " | Cantidad: " << ventas[i].cantidad << endl;
+            }else{
+                cout << "Plato no encontrado | ID: " << ventas[i].idPlato
+                     << " | Cantidad: " << ventas[i].cantidad << endl;
+            }
         }
     }
 }
@@ -209,8 +224,7 @@ void InformeManager::mesasAtendidasPorMozo(){
     int idMozo;
     int cantidadMesas = 0;
 
-    cout << "ID Mozo: ";
-    cin >> idMozo;
+    idMozo = leerEntero("ID Mozo: ");
 
     if(_archivoMozo.buscar(idMozo) < 0){
         cout << "No existe un mozo con ese ID." << endl;

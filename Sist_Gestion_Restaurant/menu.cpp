@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include "menu.h"
+#include "inputUtils.h"
 
 using namespace std;
 
@@ -27,8 +28,7 @@ int Menu::seleccionarOpcion(){
     int opcion;
 
     do{
-        cout << "Ingrese opcion: ";
-        cin >> opcion;
+        opcion = leerEntero("Ingrese opcion: ");
 
         if(opcion < 0 || opcion > getCantidadOpciones()){
             cout << " > Opcion invalida..." << endl;

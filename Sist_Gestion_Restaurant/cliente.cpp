@@ -3,6 +3,7 @@ using namespace std;
 
 #include "cliente.h"
 #include "persona.h"
+#include "inputUtils.h"
 
 Cliente :: Cliente()
 {
@@ -36,8 +37,7 @@ void Cliente :: cargar(){
 
     Persona :: cargar();
 
-    cout << "ES VIP ?  (SI = 1 / NO = 0) ";
-    cin >> esVip;
+    esVip = leerSiNo("ES VIP ?  (SI = 1 / NO = 0) ");
 
     setEsVip(esVip);
 

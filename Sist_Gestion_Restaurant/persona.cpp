@@ -3,6 +3,7 @@
 using namespace std;
 
 #include "persona.h"
+#include "inputUtils.h"
 
 Persona :: Persona()
 {
@@ -65,17 +66,10 @@ void Persona :: cargar()
     char apellido[30];
     char telefono[20];
 
-    cout << "DNI : ";
-    cin >> dni;
-
-    cout << "NOMBRE : ";
-    cin >> nombre;
-
-    cout << "APELLIDO : ";
-    cin >> apellido;
-
-    cout << "TELEFONO : ";
-    cin >> telefono;
+    leerCadena("DNI : ", dni, 15);
+    leerCadena("NOMBRE : ", nombre, 30);
+    leerCadena("APELLIDO : ", apellido, 30);
+    leerCadena("TELEFONO : ", telefono, 20);
 
     setDni(dni);
     setNombre(nombre);
@@ -86,6 +80,7 @@ void Persona :: cargar()
 
 void Persona :: mostrar()
 {
+    cout << "-----------------------------------------" << endl;
     cout << "DNI : " << _dni << endl;
     cout << "NOMBRE : " << _nombre << endl;
     cout << "APELLIDO : " << _apellido << endl;

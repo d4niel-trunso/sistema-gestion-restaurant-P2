@@ -17,11 +17,12 @@ Sistema de gestion de restaurante hecho en C++ para Programacion 2. La aplicacio
 
 ## Estado funcional actual
 
-- Reservas y facturacion ya estan conectadas al menu principal.
-- Los menus principales de mozos, clientes, mesas y platos todavia muestran `FUNCIONANDO...`; las clases manager existen, pero falta integrarlas al menu principal.
-- `detalleFacturaManager.*` esta pendiente de desarrollo.
-- Hay funciones marcadas como "En construccion" en facturacion, como buscar y anular factura.
-- El informe ahora incluye como informes esperados: recaudacion por dia, recaudacion por periodo, platos mas vendidos, plato menos vendido y cantidad de mesas atendidas por mozo.
+- Mozos, clientes, mesas, platos, reservas, facturas e informes estan conectados al menu principal.
+- Las cargas principales usan helpers de entrada para aceptar textos con espacios y validar numeros/fechas.
+- La consola se configura al iniciar para usar UTF-8 en Windows y mostrar correctamente `ñ`, acentos y signos de apertura.
+- `detalleFacturaManager.*` esta desarrollado y se usa al emitir facturas para cargar platos consumidos y calcular el total.
+- Facturacion permite emitir, listar, buscar, anular y consultar facturas por fecha, mesa o mozo.
+- Informes implementa recaudacion por dia, recaudacion por periodo, platos mas vendidos, plato menos vendido y cantidad de mesas atendidas por mozo.
 
 ## Convenciones de codigo
 
@@ -33,6 +34,11 @@ Sistema de gestion de restaurante hecho en C++ para Programacion 2. La aplicacio
 - Para persistencia, seguir el patron con `FILE*`, `fopen`, `fread`, `fwrite`, `fseek`, `ftell` y `fclose`, salvo que se decida una refactorizacion general.
 - Los IDs se generan actualmente como `getCantidadRegistros() + 1`; si se agrega baja logica por estado, revisar duplicados antes de confiar en ese calculo.
 - Usar `bool estado` como baja logica cuando corresponda, en vez de borrar registros fisicamente.
+- Para inputs nuevos o modificados, usar `inputUtils.*`:
+  - `leerCadena` para textos que puedan tener espacios.
+  - `leerEntero`, `leerEnteroEnRango`, `leerFloatMinimo` y `leerSiNo` para numeros y opciones.
+  - `leerFecha` para fechas, siempre con formato `dia mes anio`.
+- Guardar los archivos fuente en UTF-8 si se agregan textos con `ñ`, acentos o signos como `¿`.
 - Evitar cambios masivos de estilo o refactors amplios si la tarea es puntual.
 
 ## Cuidado con nombres e includes
@@ -76,13 +82,9 @@ No commitear archivos `.dat`, binarios generados, ni objetos de compilacion salv
 
 ## Puntos conocidos a revisar antes de extender
 
-- `persona.h` actualmente solo contiene `#pragma once`; falta declarar la clase `Persona`. Por eso `Cliente : public Persona` y `Mozo : public Persona` no compilan.
-- `ClienteManager::listadoPorApellido` hace `cout << vec[i].mostrar();`, pero `mostrar()` devuelve `void`.
-- `ArchivoDetalleFactura::guardar` usa `fread` al guardar; deberia usar `fwrite`.
-- `PlatoManager::listadoPorNombre` tiene un bucle interno que incrementa `i` en vez de `k`.
-- `ClienteManager::listadoPorVips` no lee cada registro dentro del bucle antes de consultar `getEsVip()`.
-- `MenuManager` no invoca todavia `MozoManager`, `ClienteManager`, `MesaManager` ni `PlatoManager`.
-- Las nuevas salidas del informe relacionadas con ventas necesitan cruzar `DetalleFactura`, `Factura` y `Plato`.
+- `DetalleFactura::cargar()` existe por consistencia, pero la carga real de detalles de una factura se coordina desde `DetalleFacturaManager::cargarDetallesFactura`.
+- Los IDs siguen generandose como `getCantidadRegistros() + 1`; si se reutilizan registros dados de baja, revisar duplicados.
+- Los listados con datos asociados resuelven referencias desde archivos binarios en el momento de mostrar. Si se cambian nombres o claves, revisar reservas, facturas, detalles e informes.
 
 ## Al modificar el informe
 

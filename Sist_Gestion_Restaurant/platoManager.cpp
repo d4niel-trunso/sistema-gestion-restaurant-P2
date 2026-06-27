@@ -4,6 +4,7 @@
 #include "platoManager.h"
 #include "plato.h"
 #include "rlutil.h"
+#include "inputUtils.h"
 
 using namespace std;
 
@@ -90,8 +91,7 @@ void PlatoManager :: modificarPlato()
     Plato objPlato;
     int idPlato;
 
-    cout << "INGRESE ID DEL PLATO A MODIFICAR: ";
-    cin >> idPlato;
+    idPlato = leerEntero("INGRESE ID DEL PLATO A MODIFICAR: ");
 
     int pos = objArchivoPlato.buscar(idPlato);
     if(pos < 0)
@@ -129,8 +129,7 @@ void PlatoManager :: bajaPlato()
     Plato objPlato;
     int idPlato;
 
-    cout << "INGRESE ID DEL PLATO A DAR DE BAJA: ";
-    cin >> idPlato;
+    idPlato = leerEntero("INGRESE ID DEL PLATO A DAR DE BAJA: ");
 
     int pos = objArchivoPlato.buscar(idPlato);
     if(pos < 0)
@@ -325,7 +324,7 @@ void PlatoManager :: consultaPorCategoria()
     cout << "2/ PRINCIPAL" << endl;
     cout << "3/ POSTRE" << endl;
     cout << "4/ BEBIDA" << endl;
-    cin >> categoria;
+    categoria = leerEnteroEnRango("INGRESE : ", 1, 4);
 
     for(int i = 0; i < cantidadRegistros; i++)
     {
@@ -352,10 +351,14 @@ void PlatoManager :: consultaPorRangoDePrecios()
     float hasta;
     int mostrados = 0;
 
-    cout << "INGRESE DESDE CUANTO : ";
-    cin >> desde;
-    cout << "INGRESE HASTA CUANTO : ";
-    cin >> hasta;
+    desde = leerFloatMinimo("INGRESE DESDE CUANTO : ", 0);
+    hasta = leerFloatMinimo("INGRESE HASTA CUANTO : ", 0);
+
+    if(desde > hasta)
+    {
+        cout << "EL RANGO DE PRECIOS ES INVALIDO." << endl;
+        return;
+    }
 
     for(int i = 0; i < cantidadRegistros; i++)
     {

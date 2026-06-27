@@ -2,6 +2,7 @@
 #include <cstring>
 using namespace std;
 #include "detalleFactura.h"
+#include "inputUtils.h"
 
 
 DetalleFactura :: DetalleFactura()
@@ -75,10 +76,8 @@ void DetalleFactura ::  cargar()
     int cantidad;
 
     cout << "INGRESAR LA INFORMACION CORRESPONDIENTE.." << endl;
-    cout << "ID PLATO : ";
-    cin >> idPlato;
-    cout << "CANTIDAD : ";
-    cin >> cantidad;
+    idPlato = leerEntero("ID PLATO : ");
+    cantidad = leerEnteroEnRango("CANTIDAD : ", 1, 1000);
 
 
     setIdPlato(idPlato);
@@ -89,10 +88,12 @@ void DetalleFactura ::  cargar()
 void DetalleFactura ::  mostrar()
 {
 
+    cout << "-----------------------------------------" << endl;
     cout << "MOSTRANDO DETALLE DE FACTURA.." << endl;
     cout << "ID DETALLE: " << _idDetalle << endl;
     cout << "ID FACTURA: " << _idFactura << endl;
     cout << "ID PLATO: " << _idPlato << endl;
     cout << "CANTIDAD: " << _cantidad << endl;
     cout << "PRECIO UNITARIO: " << _precioUnitario << endl;
+    cout << "SUBTOTAL: " << (_cantidad * _precioUnitario) << endl;
 }

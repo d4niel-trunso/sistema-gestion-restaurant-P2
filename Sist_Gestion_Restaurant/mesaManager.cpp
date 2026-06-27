@@ -4,6 +4,7 @@
 #include "mesa.h"
 #include "mesaManager.h"
 #include "rlutil.h"
+#include "inputUtils.h"
 
 using namespace std;
 
@@ -90,8 +91,7 @@ void MesaManager :: modificarMesa()
     Mesa objMesa;
     int nroMesa;
 
-    cout << "INGRESE EL NUMERO DE MESA A MODIFICAR: ";
-    cin >> nroMesa;
+    nroMesa = leerEntero("INGRESE EL NUMERO DE MESA A MODIFICAR: ");
 
     int pos = objArchivoMesa.buscar(nroMesa);
     if(pos < 0)
@@ -129,8 +129,7 @@ void MesaManager :: bajaMesa()
     Mesa objMesa;
     int nroMesa;
 
-    cout << "INGRESE EL NUMERO DE MESA A DAR DE BAJA: ";
-    cin >> nroMesa;
+    nroMesa = leerEntero("INGRESE EL NUMERO DE MESA A DAR DE BAJA: ");
 
     int pos = objArchivoMesa.buscar(nroMesa);
     if(pos < 0)
@@ -248,8 +247,7 @@ void MesaManager :: consultaPorNumeroMesa()
     Mesa objMesa;
     int nroMesa;
 
-    cout << "INGRESE EL NUMERO DE MESA : " << endl;
-    cin >> nroMesa;
+    nroMesa = leerEntero("INGRESE EL NUMERO DE MESA : ");
 
     int pos = objArchivoMesa.buscar(nroMesa);
     if(pos < 0)
@@ -277,8 +275,7 @@ void MesaManager :: consultaPorUbicacion()
     int ubicacion;
     int mostrados = 0;
 
-    cout << "INGRESE LA UBICACION : ";
-    cin >> ubicacion;
+    ubicacion = leerEnteroEnRango("INGRESE LA UBICACION (1-INTERIOR / 2-TERRAZA): ", 1, 2);
 
     for(int i = 0; i < cantidadRegistros; i++)
     {

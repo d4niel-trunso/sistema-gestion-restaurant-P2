@@ -62,7 +62,7 @@ Resultado esperado:
 
 ## Datos De Demo
 
-Usar valores sin espacios porque las cargas usan `cin >>`.
+Usar algunos valores con espacios y caracteres espanoles para validar los helpers de entrada y la configuracion UTF-8 de consola.
 
 ### Mozos
 
@@ -153,24 +153,24 @@ Menu principal > `4. PLATOS` > `1. ALTA DE PLATO`.
 
 | Campo | Plato 1 | Plato 2 | Plato 3 | Plato 4 |
 | --- | --- | --- | --- | --- |
-| Nombre | Empanadas | Milanesa | Flan | Gaseosa |
+| Nombre | Empanadas criollas | Milanesa napolitana | Flan casero | Ñoquis de papa |
 | Categoria | 1 | 2 | 3 | 4 |
 | Precio | 1200 | 4500 | 1800 | 900 |
 
 IDs esperados:
 
-- Empanadas: `1`.
-- Milanesa: `2`.
-- Flan: `3`.
-- Gaseosa: `4`.
+- Empanadas criollas: `1`.
+- Milanesa napolitana: `2`.
+- Flan casero: `3`.
+- Ñoquis de papa: `4`.
 
 Validar:
 
 - `4. LISTAR POR NOMBRE`: orden alfabetico.
 - `5. LISTAR POR CATEGORIA`: un plato en cada categoria.
-- `6. LISTAR POR PRECIO`: Gaseosa, Empanadas, Flan, Milanesa.
+- `6. LISTAR POR PRECIO`: Ñoquis de papa, Empanadas criollas, Flan casero, Milanesa napolitana.
 - `7. CONSULTAR POR CATEGORIA`: buscar categoria `2`.
-- `8. CONSULTAR POR RANGO DE PRECIOS`: buscar desde `1000` hasta `2000`, deben aparecer Empanadas y Flan.
+- `8. CONSULTAR POR RANGO DE PRECIOS`: buscar desde `1000` hasta `2000`, deben aparecer Empanadas criollas y Flan casero.
 
 Caso negativo:
 
@@ -250,7 +250,7 @@ Importe esperado:
 
 - Empanadas: `2 * 1200 = 2400`.
 - Milanesa: `1 * 4500 = 4500`.
-- Gaseosa: `3 * 900 = 2700`.
+- Ñoquis de papa: `3 * 900 = 2700`.
 - Total: `$9600`.
 - Vuelto: `$400`.
 
@@ -313,8 +313,8 @@ Con el dataset anterior y la factura `2` anulada, los resultados esperados son:
 | Recaudacion por dia | `15 7 2026` | `$9600` |
 | Recaudacion por dia | `16 7 2026` | `$0`, porque la factura de ese dia fue anulada |
 | Recaudacion por periodo | desde `15 7 2026` hasta `16 7 2026` | `$9600` |
-| Platos mas vendidos | sin entrada extra | Gaseosa, ID `4`, cantidad `3` |
-| Plato menos vendido | sin entrada extra | Milanesa, ID `2`, cantidad `1` |
+| Platos mas vendidos | sin entrada extra | Ñoquis de papa, ID `4`, cantidad `3` |
+| Plato menos vendido | sin entrada extra | Milanesa napolitana, ID `2`, cantidad `1` |
 | Mesas atendidas por mozo | ID Mozo `1` | `1` |
 | Mesas atendidas por mozo | ID Mozo `2` | `0`, porque su factura fue anulada |
 

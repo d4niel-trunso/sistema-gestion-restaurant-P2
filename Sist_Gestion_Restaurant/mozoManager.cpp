@@ -4,6 +4,7 @@
 #include "mozo.h"
 #include "mozoManager.h"
 #include "rlutil.h"
+#include "inputUtils.h"
 
 using namespace std;
 
@@ -85,8 +86,7 @@ void MozoManager :: modificarMozo()
     Mozo objMozo;
     int idMozo;
 
-    cout << "INGRESE ID DEL MOZO A MODIFICAR: ";
-    cin >> idMozo;
+    idMozo = leerEntero("INGRESE ID DEL MOZO A MODIFICAR: ");
 
     int pos = objArchivoMozo.buscar(idMozo);
     if(pos < 0)
@@ -124,8 +124,7 @@ void MozoManager :: bajaMozo()
     Mozo objMozo;
     int idMozo;
 
-    cout << "INGRESE ID DEL MOZO A DAR DE BAJA: ";
-    cin >> idMozo;
+    idMozo = leerEntero("INGRESE ID DEL MOZO A DAR DE BAJA: ");
 
     int pos = objArchivoMozo.buscar(idMozo);
     if(pos < 0)
@@ -254,8 +253,7 @@ void MozoManager :: consultarPorDni()
     int cantidadRegistros = objArchivoMozo.getCantidadRegistros();
     char dni[15];
 
-    cout << "INGRESE SU DNI : ";
-    cin >> dni;
+    leerCadena("INGRESE SU DNI : ", dni, 15);
 
     for(int i = 0; i < cantidadRegistros; i++)
     {
@@ -282,8 +280,7 @@ void MozoManager :: consultaPorTurno()
     cout << "1/ Maniana" << endl;
     cout << "2/ Tarde" << endl;
     cout << "3/ Noche" << endl;
-    cout << "/// : ";
-    cin >> turno;
+    turno = leerEnteroEnRango("/// : ", 1, 3);
 
     for(int i = 0; i < cantidadRegistros; i++)
     {

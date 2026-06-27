@@ -2,6 +2,7 @@
 #include <cstring>
 using namespace std;
 #include "plato.h"
+#include "inputUtils.h"
 
 Plato :: Plato(){
 
@@ -56,18 +57,16 @@ void Plato :: cargar(){
 
     cout << "INGRESE LA INFORMACION DEL PLATO.." << endl;
 
-    cout << "NOMBRE : ";
-    cin >> nombre;
+    leerCadena("NOMBRE : ", nombre, 50);
 
     cout << "CATEGORIA.. " << endl;
     cout << "1/ ENTRADA" << endl;
     cout << "2/ PRINCIPAL" << endl;
     cout << "3/ POSTRE" << endl;
     cout << "4/ BEBIDA" << endl;
-    cin >> categoria;
+    categoria = leerEnteroEnRango("INGRESE : ", 1, 4);
 
-    cout << "PRECIO : "<<endl;
-    cin >> precio;
+    precio = leerFloatMinimo("PRECIO : ", 0.01f);
 
 
     setCategoria(categoria);
@@ -77,6 +76,7 @@ void Plato :: cargar(){
 }
 void Plato :: mostrar(){
 
+    cout << "-----------------------------------------" << endl;
     cout << "ID PLATO : " << _idPlato << endl;
     cout << "NOMBRE : " << _nombre << endl;
     cout << "PRECIO : " << _precio << endl;
@@ -92,4 +92,5 @@ void Plato :: mostrar(){
         break;
     }
     cout << endl;
+    cout << "ESTADO : " << (_estado ? "ACTIVO" : "INACTIVO") << endl;
 }
