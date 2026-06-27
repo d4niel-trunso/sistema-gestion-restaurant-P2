@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Sist_Gestion_Restaurant" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Sist_Gestion_Restaurant" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Sist_Gestion_Restaurant" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Unit filename="archivoCliente.cpp" />
+		<Unit filename="archivoCliente.h" />
+		<Unit filename="archivoDetalleFactura.cpp" />
+		<Unit filename="archivoDetalleFactura.h" />
+		<Unit filename="archivoMesa.cpp" />
+		<Unit filename="archivoMesa.h" />
+		<Unit filename="archivoMozo.cpp" />
+		<Unit filename="archivoMozo.h" />
+		<Unit filename="archivoPlato.cpp" />
+		<Unit filename="archivoPlato.h" />
+		<Unit filename="cliente.cpp" />
+		<Unit filename="cliente.h" />
+		<Unit filename="clienteManager.cpp" />
+		<Unit filename="clienteManager.h" />
+		<Unit filename="detalleFactura.cpp" />
+		<Unit filename="detalleFactura.h" />
+		<Unit filename="detalleFacturaManager.cpp" />
+		<Unit filename="detalleFacturaManager.h" />
+		<Unit filename="factura.cpp" />
+		<Unit filename="factura.h" />
+		<Unit filename="facturaArchivo.cpp" />
+		<Unit filename="facturaArchivo.h" />
+		<Unit filename="facturaManager.cpp" />
+		<Unit filename="facturaManager.h" />
+		<Unit filename="fecha.cpp" />
+		<Unit filename="fecha.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="menu.cpp" />
+		<Unit filename="menu.h" />
+		<Unit filename="menuManager.cpp" />
+		<Unit filename="menuManager.h" />
+		<Unit filename="mesa.cpp" />
+		<Unit filename="mesa.h" />
+		<Unit filename="mesaManager.cpp" />
+		<Unit filename="mesaManager.h" />
+		<Unit filename="mozo.cpp" />
+		<Unit filename="mozo.h" />
+		<Unit filename="mozoManager.cpp" />
+		<Unit filename="mozoManager.h" />
+		<Unit filename="persona.cpp" />
+		<Unit filename="persona.h" />
+		<Unit filename="plato.cpp" />
+		<Unit filename="plato.h" />
+		<Unit filename="platoManager.cpp" />
+		<Unit filename="platoManager.h" />
+		<Unit filename="reserva.cpp" />
+		<Unit filename="reserva.h" />
+		<Unit filename="reservaArchivo.cpp" />
+		<Unit filename="reservaArchivo.h" />
+		<Unit filename="reservaManager.cpp" />
+		<Unit filename="reservaManager.h" />
+		<Unit filename="rlutil.h" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

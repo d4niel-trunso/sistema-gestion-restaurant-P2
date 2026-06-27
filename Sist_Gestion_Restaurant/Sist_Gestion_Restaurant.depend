@@ -1,0 +1,163 @@
+# depslib dependency file v1.0
+1779060792 source:c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\main.cpp
+	<iostream>
+	"menuManager.h"
+
+1782173168 c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\menumanager.h
+	"menu.h"
+	"reservaManager.h"
+	"facturaManager.h"
+
+1779211966 c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\menu.h
+
+1782429663 source:c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\menu.cpp
+	<iostream>
+	<cstdio>
+	"menuManager.h"
+
+1782173754 source:c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\menumanager.cpp
+	<iostream>
+	<cstdio>
+	"menuManager.h"
+	"rlutil.h"
+
+1571584339 c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\rlutil.h
+	<iostream>
+	<string>
+	<cstdio>
+	<stdio.h>
+	<string.h>
+	<windows.h>
+	<conio.h>
+	<termios.h>
+	<unistd.h>
+	<sys/ioctl.h>
+	<sys/types.h>
+	<sys/time.h>
+
+1779065630 source:c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\fecha.cpp
+	<string>
+	"fecha.h"
+
+1779211966 c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\fecha.h
+	<string>
+
+1781637293 source:c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\reserva.cpp
+	<iostream>
+	"reserva.h"
+
+1779237713 c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\reserva.h
+	"fecha.h"
+
+1782268714 source:c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\reservaarchivo.cpp
+	<iostream>
+	<cstdio>
+	"reservaArchivo.h"
+
+1779227005 c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\reservaarchivo.h
+	"reserva.h"
+	<string>
+
+1782430527 source:c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\reservamanager.cpp
+	<iostream>
+	"reservaManager.h"
+	"rlutil.h"
+
+1782170979 c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\reservamanager.h
+	"reservaArchivo.h"
+
+1782266749 source:c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\factura.cpp
+	<iostream>
+	"factura.h"
+
+1782266749 c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\factura.h
+	"fecha.h"
+
+1782268714 source:c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\facturaarchivo.cpp
+	<iostream>
+	<cstdio>
+	"facturaArchivo.h"
+
+1782170024 c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\facturaarchivo.h
+	<string>
+	"factura.h"
+
+1782267701 source:c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\facturamanager.cpp
+	<iostream>
+	<cstdlib>
+	"facturaManager.h"
+	"rlutil.h"
+
+1782266749 c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\facturamanager.h
+	"facturaArchivo.h"
+
+1782431769 source:c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\plato.cpp
+	<iostream>
+	<cstring>
+	"Plato.h"
+
+1782431678 c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\plato.h
+
+1782433640 source:c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\archivoplato.cpp
+	<iostream>
+	<cstring>
+	"ArchivoPlato.h"
+	"Plato.h"
+
+1782432431 c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\archivoplato.h
+	"Plato.h"
+
+1782432642 source:c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\platomanager.cpp
+	<iostream>
+	<cstring>
+	"ArchivoPlato.h"
+	"PlatoManager.h"
+	"Plato.h"
+
+1782432642 c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\platomanager.h
+
+1782437217 source:c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\mesa.cpp
+	<iostream>
+	<cstring>
+	"mesa.h"
+
+1782432999 c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\mesa.h
+
+1782437217 source:c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\archivomesa.cpp
+	<iostream>
+	<cstring>
+	"archivoMesa.h"
+	"mesa.h"
+
+1782437217 c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\archivomesa.h
+	"mesa.h"
+
+1782523391 source:c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\mesamanager.cpp
+	<iostream>
+	<cstring>
+	"ArchivoMesa.h"
+	"Mesa.h"
+	"MesaManager.h"
+
+1782436045 source:c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\detallefactura.cpp
+	<iostream>
+	<cstring>
+	"DetalleFactura.h"
+
+1782436045 c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\detallefactura.h
+
+1782436336 source:c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\archivodetallefactura.cpp
+	<iostream>
+	<cstring>
+	"ArchivoDetalleFactura.h"
+	"DetalleFactura.h"
+
+1782436264 c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\archivodetallefactura.h
+	"DetalleFactura.h"
+
+1782436563 source:c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\detallefacturamanager.cpp
+
+1782433552 c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\mesamanager.h
+
+1782523546 source:c:\users\usuario\desktop\utn\utn - 2026\programación ii\proyecto integrador\sist_gestion_restaurant\persona.cpp
+
