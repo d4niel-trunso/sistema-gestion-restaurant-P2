@@ -1,8 +1,8 @@
 #include <iostream>
 #include <cstring>
 using namespace std;
-#include "ArchivoMozo.h"
-#include "Mozo.h"
+#include "archivoMozo.h"
+#include "mozo.h"
 
 ArchivoMozo :: ArchivoMozo(){
     strcpy(_nombreArchivo,"mozos.dat");

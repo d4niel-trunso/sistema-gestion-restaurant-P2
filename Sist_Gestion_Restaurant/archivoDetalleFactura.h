@@ -1,6 +1,6 @@
 #pragma once
 
-#include "DetalleFactura.h"
+#include "detalleFactura.h"
 
 class ArchivoDetalleFactura{
 private:

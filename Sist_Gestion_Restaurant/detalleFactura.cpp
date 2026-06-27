@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstring>
 using namespace std;
-#include "DetalleFactura.h"
+#include "detalleFactura.h"
 
 
 DetalleFactura :: DetalleFactura()

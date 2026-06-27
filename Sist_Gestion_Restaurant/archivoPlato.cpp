@@ -1,8 +1,8 @@
 #include <iostream>
 #include <cstring>
 using namespace std;
-#include "ArchivoPlato.h"
-#include "Plato.h"
+#include "archivoPlato.h"
+#include "plato.h"
 
 ArchivoPlato :: ArchivoPlato(){
     strcpy(_nombreArchivo,"platos.dat");

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstring>
 using namespace std;
-#include "Plato.h"
+#include "plato.h"
 
 Plato :: Plato(){
 

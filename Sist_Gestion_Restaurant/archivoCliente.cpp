@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstring>
 using namespace std;
-#include "Cliente.h"
+#include "cliente.h"
 #include "archivoCliente.h"
 
 ArchivoCliente :: ArchivoCliente(){

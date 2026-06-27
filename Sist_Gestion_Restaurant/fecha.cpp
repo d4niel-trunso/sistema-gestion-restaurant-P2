@@ -4,7 +4,7 @@
 void Fecha::establecerFechaPorDefecto(){
     _dia = 1;
     _mes = 1;
-    _mes = 1900;
+    _anio = 1900;
 }
 
 bool Fecha::esBisiesto(){
@@ -72,6 +72,10 @@ int Fecha::getMes(){
 
 int Fecha::getAnio(){
     return _anio;
+}
+
+int Fecha::toNumero(){
+    return _anio * 10000 + _mes * 100 + _dia;
 }
 
 std::string Fecha::toString(std::string formatoFecha){

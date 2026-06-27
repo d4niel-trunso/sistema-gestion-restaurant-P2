@@ -17,6 +17,7 @@ public:
     int getDia();
     int getMes();
     int getAnio();
+    int toNumero();
     void agregarDias(int cantidadDias);
     std::string toString(std::string formatoFecha = "DD/MM/YYYY");
 };

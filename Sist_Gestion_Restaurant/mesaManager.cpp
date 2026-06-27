@@ -1,9 +1,9 @@
 #include <iostream>
 using namespace std;
 #include <cstring>
-#include "ArchivoMesa.h"
-#include "Mesa.h"
-#include "MesaManager.h"
+#include "archivoMesa.h"
+#include "mesa.h"
+#include "mesaManager.h"
 
 void MesaManager :: altaMesa()
 {

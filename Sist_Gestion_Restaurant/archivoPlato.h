@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Plato.h"
+#include "plato.h"
 
 class ArchivoPlato{
 private:
