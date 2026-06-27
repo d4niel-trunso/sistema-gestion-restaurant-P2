@@ -42,10 +42,10 @@ void ReservaManager::menuReserva()
             listar();
             break;
         case 3:
-            cout << "Funciona busqueda" << endl;
+            cout << "En construccion..." << endl;
             break;
         case 4:
-            cout << "Funciona cancelacion" << endl;
+            cout << "En construccion..." << endl;
             break;
         case 0:
             cout << "Volviendo al menu principal..." << endl;

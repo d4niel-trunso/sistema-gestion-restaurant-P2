@@ -4,7 +4,7 @@ using namespace std;
 #include "cliente.h"
 #include "persona.h"
 
-Cliente :: cliente()
+Cliente :: Cliente()
 {
 
     _idCliente = 0;
@@ -15,7 +15,7 @@ Cliente :: cliente()
 void Cliente :: setIdCliente(int idCliente){
     _idCliente = idCliente;
 }
-bool Cliente :: setEsVip(bool esVip){
+void Cliente :: setEsVip(bool esVip){
     _esVip = esVip;
 }
 
@@ -28,6 +28,20 @@ bool Cliente :: getEsVip(){
 }
 ///
 
+void Cliente :: cargar(){
+
+    bool esVip;
+
+    cout << "INGRESE LA INFORMACION DEL CLIENTE.." << endl;
+
+    Persona :: cargar();
+
+    cout << "ES VIP ?  (SI = 1 / NO = 0) ";
+    cin >> esVip;
+
+    setEsVip(esVip);
+
+}
 
 void Cliente :: mostrar(){
 

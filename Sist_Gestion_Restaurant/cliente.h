@@ -10,11 +10,11 @@ private:
 
 public:
 
-    cliente();
+    Cliente();
 
     ///SETTERS
     void setIdCliente(int idCliente);
-    bool setEsVip(bool esVip);
+    void setEsVip(bool esVip);
 
     /// GETTERS
     int getIdCliente();
@@ -22,6 +22,7 @@ public:
     ///
 
 
+    void cargar();
     void mostrar();
 
 };

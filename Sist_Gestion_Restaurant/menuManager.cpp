@@ -43,16 +43,16 @@ void MenuManager::ejecutarOpcion(int opcion){
 
     switch(opcion){
     case 1:
-        cout << "FUNCIONANDO..." << endl;
+        cout << "En construccion..." << endl;
         break;
     case 2:
-        cout << "FUNCIONANDO..." << endl;
+        cout << "En construccion..." << endl;
         break;
     case 3:
-        cout << "FUNCIONANDO..." << endl;
+        cout << "En construccion..." << endl;
         break;
     case 4:
-        cout << "FUNCIONANDO..." << endl;
+        cout << "En construccion..." << endl;
         break;
     case 5:
         _reservaManager.menuReserva();

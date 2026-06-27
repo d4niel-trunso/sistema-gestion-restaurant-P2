@@ -9,6 +9,4 @@ public:
 
     void consultaPorDni();
     void consultaPorVip();
-
-    void cargar();
 };

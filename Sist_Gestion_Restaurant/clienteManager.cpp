@@ -53,7 +53,7 @@ void ClienteManager :: listadoPorApellido()
 
     for(int i = 0; i < cantidadRegistros; i++)
     {
-        cout << vec[i].mostrar();
+        vec[i].mostrar();
     }
 
     delete[]vec;
@@ -70,6 +70,8 @@ void ClienteManager :: listadoPorVips()
 
     for(int i = 0; i < cantidadRegistros; i++)
     {
+        objCliente = objArchivoCliente.leer(i);
+
         if(objCliente.getEsVip())
         {
             objCliente.mostrar();
@@ -142,19 +144,4 @@ void ClienteManager :: consultaPorVip()
     }
 
     cout << "NO SE ENCONTRO EL CLIENTE." << endl;
-}
-
-void ClienteManager :: cargar(){
-
-    bool esVip;
-
-    cout << "INGRESE LA INFORMACION DEL CLIENTE.." << endl;
-
-    Persona :: cargar();
-
-    cout << "ES VIP ?  (SI = 1 / NO = 0) ";
-    cin >> esVip;
-
-    setEsVip(esVip);
-
 }

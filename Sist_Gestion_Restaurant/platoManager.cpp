@@ -1,9 +1,9 @@
 #include <iostream>
 #include <cstring>
 using namespace std;
-#include "ArchivoPlato.h"
-#include "PlatoManager.h"
-#include "Plato.h"
+#include "archivoPlato.h"
+#include "platoManager.h"
+#include "plato.h"
 
 void PlatoManager :: altaPlato()
 {
@@ -47,7 +47,7 @@ void PlatoManager :: listadoPorNombre()
 
     for(int i = 0; i < cantidadRegistros - 1; i++)
     {
-        for(int k = 0; k < cantidadRegistros; i++)
+        for(int k = 0; k < cantidadRegistros; k++)
         {
             if(strcmp(vec[i].getNombre(),vec[k].getNombre()) > 0)
             {

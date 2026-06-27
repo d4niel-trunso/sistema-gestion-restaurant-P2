@@ -73,7 +73,6 @@ void DetalleFactura ::  cargar()
 
     int idPlato;
     int cantidad;
-    bool estado;
 
     cout << "INGRESAR LA INFORMACION CORRESPONDIENTE.." << endl;
     cout << "ID PLATO : ";

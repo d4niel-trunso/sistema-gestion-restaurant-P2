@@ -5,7 +5,7 @@ using namespace std;
 #include "mozo.h"
 #include "fecha.h"
 
-Mozo :: mozo()
+Mozo :: Mozo()
 {
 
     _idMozo = 0;

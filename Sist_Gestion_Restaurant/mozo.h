@@ -14,7 +14,7 @@ private :
 
 public :
 
-    mozo();
+    Mozo();
 
     /// SETTERS
     void setIdMozo(int idMozo);

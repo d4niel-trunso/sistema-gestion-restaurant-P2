@@ -1,8 +1,8 @@
 #include <iostream>
 #include <cstring>
 using namespace std;
-#include "ArchivoDetalleFactura.h"
-#include "DetalleFactura.h"
+#include "archivoDetalleFactura.h"
+#include "detalleFactura.h"
 
 ArchivoDetalleFactura :: ArchivoDetalleFactura(){
     strcpy(_nombreArchivo,"detalles.dat");
@@ -32,7 +32,7 @@ bool ArchivoDetalleFactura :: guardar(DetalleFactura obj){
         return false;
     }
 
-    bool escribio = fread(&obj,sizeof(DetalleFactura),1,p);
+    bool escribio = fwrite(&obj,sizeof(DetalleFactura),1,p);
 
     fclose(p);
 
