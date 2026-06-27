@@ -1,7 +1,5 @@
 #include <iostream>
 #include <cstdlib>
-#include <vector>
-#include <algorithm>
 #include "facturaManager.h"
 #include "rlutil.h"
 #include "inputUtils.h"
@@ -112,7 +110,8 @@ void FacturaManager::emitirFactura(){
     float importeTotal;
     float montoAbonado;
     bool estado;
-    vector<DetalleFactura> detalles;
+    DetalleFactura *detalles = nullptr;
+    int cantidadDetalles = 0;
 
     cout << "Ingrese factura:" << endl;
 
@@ -140,8 +139,9 @@ void FacturaManager::emitirFactura(){
 
     cout << "Ingrese los detalles de consumo:" << endl;
 
-    if(!_detalleManager.cargarDetallesFactura(idFactura, detalles, importeTotal)){
+    if(!_detalleManager.cargarDetallesFactura(idFactura, detalles, cantidadDetalles, importeTotal)){
         cout << "No se puede guardar una factura sin detalles." << endl;
+        delete[] detalles;
         return;
     }
 
@@ -150,6 +150,7 @@ void FacturaManager::emitirFactura(){
 
     if(montoAbonado < importeTotal){
         cout << "El monto abonado no puede ser menor al importe total." << endl;
+        delete[] detalles;
         return;
     }
 
@@ -158,7 +159,7 @@ void FacturaManager::emitirFactura(){
     Factura factura(idFactura, numeroMesa, idMozo, f, formaPago, importeTotal, montoAbonado, estado);
 
     if(_archivo.guardar(factura)){
-        if(_detalleManager.guardarDetalles(detalles)){
+        if(_detalleManager.guardarDetalles(detalles, cantidadDetalles)){
             cout << "Factura generada y guardada exitosamente!" << endl;
         }else{
             cout << "La factura fue guardada, pero ocurrio un error al guardar sus detalles." << endl;
@@ -166,6 +167,8 @@ void FacturaManager::emitirFactura(){
     }else{
         cout << "Error al intentar acceder al archivo facturas.dat." << endl;
     }
+
+    delete[] detalles;
 }
 
 void FacturaManager::buscarFacturaPorID(){
@@ -231,52 +234,58 @@ void FacturaManager::anularFactura(){
 
 void FacturaManager::listarPorFecha(){
     int cantidad = _archivo.getCantidadRegistros();
-    vector<Factura> facturas;
+    int cantidadFacturas = 0;
+    Factura *facturas = new Factura[cantidad];
 
     for(int i = 0; i < cantidad; i++){
         Factura factura = _archivo.leer(i);
         if(factura.getEstado()){
-            facturas.push_back(factura);
+            facturas[cantidadFacturas] = factura;
+            cantidadFacturas++;
         }
     }
 
-    sort(facturas.begin(), facturas.end(), [](Factura a, Factura b){
-        return a.getFechaFactura().toNumero() < b.getFechaFactura().toNumero();
-    });
+    ordenarFacturasPorFecha(facturas, cantidadFacturas);
 
-    if(facturas.size() == 0){
+    if(cantidadFacturas == 0){
         cout << "No hay facturas activas para mostrar." << endl;
+        delete[] facturas;
         return;
     }
 
-    for(int i = 0; i < (int)facturas.size(); i++){
+    for(int i = 0; i < cantidadFacturas; i++){
         mostrarFacturaConDetalles(facturas[i]);
     }
+
+    delete[] facturas;
 }
 
 void FacturaManager::listarPorMesa(){
     int cantidad = _archivo.getCantidadRegistros();
-    vector<Factura> facturas;
+    int cantidadFacturas = 0;
+    Factura *facturas = new Factura[cantidad];
 
     for(int i = 0; i < cantidad; i++){
         Factura factura = _archivo.leer(i);
         if(factura.getEstado()){
-            facturas.push_back(factura);
+            facturas[cantidadFacturas] = factura;
+            cantidadFacturas++;
         }
     }
 
-    sort(facturas.begin(), facturas.end(), [](Factura a, Factura b){
-        return a.getNumeroMesa() < b.getNumeroMesa();
-    });
+    ordenarFacturasPorMesa(facturas, cantidadFacturas);
 
-    if(facturas.size() == 0){
+    if(cantidadFacturas == 0){
         cout << "No hay facturas activas para mostrar." << endl;
+        delete[] facturas;
         return;
     }
 
-    for(int i = 0; i < (int)facturas.size(); i++){
+    for(int i = 0; i < cantidadFacturas; i++){
         mostrarFacturaConDetalles(facturas[i]);
     }
+
+    delete[] facturas;
 }
 
 void FacturaManager::consultarPorRangoFechas(){

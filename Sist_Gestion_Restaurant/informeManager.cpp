@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 #include <cstring>
 #include "informeManager.h"
 #include "rlutil.h"
@@ -110,16 +109,18 @@ void InformeManager::recaudacionPorPeriodo(){
 }
 
 void InformeManager::platosMasVendidos(){
-    vector<VentaPlato> ventas;
+    int cantidadDetalles = _archivoDetalle.getCantidadRegistros();
+    VentaPlato *ventas = new VentaPlato[cantidadDetalles];
+    int cantidadVentas = 0;
     int mayor = 0;
 
-    for(int i = 0; i < _archivoDetalle.getCantidadRegistros(); i++){
+    for(int i = 0; i < cantidadDetalles; i++){
         DetalleFactura detalle = _archivoDetalle.leer(i);
 
         if(detalle.getEstado() && facturaActiva(detalle.getIdFactura())){
             bool encontro = false;
 
-            for(int j = 0; j < (int)ventas.size(); j++){
+            for(int j = 0; j < cantidadVentas; j++){
                 if(ventas[j].idPlato == detalle.getIdPlato()){
                     ventas[j].cantidad += detalle.getCantidad();
                     encontro = true;
@@ -130,12 +131,13 @@ void InformeManager::platosMasVendidos(){
                 VentaPlato venta;
                 venta.idPlato = detalle.getIdPlato();
                 venta.cantidad = detalle.getCantidad();
-                ventas.push_back(venta);
+                ventas[cantidadVentas] = venta;
+                cantidadVentas++;
             }
         }
     }
 
-    for(int i = 0; i < (int)ventas.size(); i++){
+    for(int i = 0; i < cantidadVentas; i++){
         if(ventas[i].cantidad > mayor){
             mayor = ventas[i].cantidad;
         }
@@ -143,11 +145,12 @@ void InformeManager::platosMasVendidos(){
 
     if(mayor == 0){
         cout << "No hay ventas activas para informar." << endl;
+        delete[] ventas;
         return;
     }
 
     cout << "Platos mas vendidos:" << endl;
-    for(int i = 0; i < (int)ventas.size(); i++){
+    for(int i = 0; i < cantidadVentas; i++){
         if(ventas[i].cantidad == mayor){
             int posPlato = _archivoPlato.buscar(ventas[i].idPlato);
             if(posPlato >= 0){
@@ -162,19 +165,23 @@ void InformeManager::platosMasVendidos(){
             }
         }
     }
+
+    delete[] ventas;
 }
 
 void InformeManager::platoMenosVendido(){
-    vector<VentaPlato> ventas;
+    int cantidadDetalles = _archivoDetalle.getCantidadRegistros();
+    VentaPlato *ventas = new VentaPlato[cantidadDetalles];
+    int cantidadVentas = 0;
     int menor = 0;
 
-    for(int i = 0; i < _archivoDetalle.getCantidadRegistros(); i++){
+    for(int i = 0; i < cantidadDetalles; i++){
         DetalleFactura detalle = _archivoDetalle.leer(i);
 
         if(detalle.getEstado() && facturaActiva(detalle.getIdFactura())){
             bool encontro = false;
 
-            for(int j = 0; j < (int)ventas.size(); j++){
+            for(int j = 0; j < cantidadVentas; j++){
                 if(ventas[j].idPlato == detalle.getIdPlato()){
                     ventas[j].cantidad += detalle.getCantidad();
                     encontro = true;
@@ -185,25 +192,27 @@ void InformeManager::platoMenosVendido(){
                 VentaPlato venta;
                 venta.idPlato = detalle.getIdPlato();
                 venta.cantidad = detalle.getCantidad();
-                ventas.push_back(venta);
+                ventas[cantidadVentas] = venta;
+                cantidadVentas++;
             }
         }
     }
 
-    if(ventas.size() == 0){
+    if(cantidadVentas == 0){
         cout << "No hay ventas activas para informar." << endl;
+        delete[] ventas;
         return;
     }
 
     menor = ventas[0].cantidad;
-    for(int i = 1; i < (int)ventas.size(); i++){
+    for(int i = 1; i < cantidadVentas; i++){
         if(ventas[i].cantidad < menor){
             menor = ventas[i].cantidad;
         }
     }
 
     cout << "Plato menos vendido (solo platos vendidos al menos una vez):" << endl;
-    for(int i = 0; i < (int)ventas.size(); i++){
+    for(int i = 0; i < cantidadVentas; i++){
         if(ventas[i].cantidad == menor){
             int posPlato = _archivoPlato.buscar(ventas[i].idPlato);
             if(posPlato >= 0){
@@ -218,6 +227,8 @@ void InformeManager::platoMenosVendido(){
             }
         }
     }
+
+    delete[] ventas;
 }
 
 void InformeManager::mesasAtendidasPorMozo(){

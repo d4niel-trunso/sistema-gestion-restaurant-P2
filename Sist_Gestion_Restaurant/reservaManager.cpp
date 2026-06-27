@@ -1,6 +1,4 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
 #include <cstring>
 #include "reservaManager.h"
 #include "rlutil.h"
@@ -210,53 +208,59 @@ void ReservaManager::cancelarReserva()
 void ReservaManager::listarPorFecha()
 {
     int cantidad = _archivo.getCantidadRegistros();
-    vector<Reserva> reservas;
+    int cantidadReservas = 0;
+    Reserva *reservas = new Reserva[cantidad];
 
     for(int i = 0; i < cantidad; i++){
         Reserva reserva = _archivo.leer(i);
         if(reserva.getEstado()){
-            reservas.push_back(reserva);
+            reservas[cantidadReservas] = reserva;
+            cantidadReservas++;
         }
     }
 
-    sort(reservas.begin(), reservas.end(), [](Reserva a, Reserva b){
-        return a.getFechaReserva().toNumero() < b.getFechaReserva().toNumero();
-    });
+    ordenarReservasPorFecha(reservas, cantidadReservas);
 
-    if(reservas.size() == 0){
+    if(cantidadReservas == 0){
         cout << "No hay reservas activas para mostrar." << endl;
+        delete[] reservas;
         return;
     }
 
-    for(int i = 0; i < (int)reservas.size(); i++){
+    for(int i = 0; i < cantidadReservas; i++){
         mostrarReservaConDatos(reservas[i]);
     }
+
+    delete[] reservas;
 }
 
 void ReservaManager::listarPorEstado()
 {
     int cantidad = _archivo.getCantidadRegistros();
-    vector<Reserva> reservas;
+    int cantidadReservas = 0;
+    Reserva *reservas = new Reserva[cantidad];
 
     for(int i = 0; i < cantidad; i++){
         Reserva reserva = _archivo.leer(i);
         if(reserva.getEstado()){
-            reservas.push_back(reserva);
+            reservas[cantidadReservas] = reserva;
+            cantidadReservas++;
         }
     }
 
-    sort(reservas.begin(), reservas.end(), [](Reserva a, Reserva b){
-        return a.getEstadoReserva() < b.getEstadoReserva();
-    });
+    ordenarReservasPorEstado(reservas, cantidadReservas);
 
-    if(reservas.size() == 0){
+    if(cantidadReservas == 0){
         cout << "No hay reservas activas para mostrar." << endl;
+        delete[] reservas;
         return;
     }
 
-    for(int i = 0; i < (int)reservas.size(); i++){
+    for(int i = 0; i < cantidadReservas; i++){
         mostrarReservaConDatos(reservas[i]);
     }
+
+    delete[] reservas;
 }
 
 void ReservaManager::consultarPorFecha()

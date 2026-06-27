@@ -19,13 +19,16 @@ bool DetalleFacturaManager::platoActivo(int idPlato, Plato &plato){
     return plato.getEstado();
 }
 
-bool DetalleFacturaManager::cargarDetallesFactura(int idFactura, vector<DetalleFactura> &detalles, float &importeTotal){
+bool DetalleFacturaManager::cargarDetallesFactura(int idFactura, DetalleFactura *&detalles, int &cantidadDetalles, float &importeTotal){
     int continuar = 1;
     int idPlato;
     int cantidad;
+    int capacidad = 4;
     Plato plato;
 
-    detalles.clear();
+    delete[] detalles;
+    detalles = new DetalleFactura[capacidad];
+    cantidadDetalles = 0;
     importeTotal = 0;
 
     while(continuar == 1){
@@ -37,14 +40,28 @@ bool DetalleFacturaManager::cargarDetallesFactura(int idFactura, vector<DetalleF
             cantidad = leerEnteroEnRango("Cantidad: ", 1, 1000);
 
             DetalleFactura detalle;
-            detalle.setIdDetalle(generarID(detalles.size()));
+            detalle.setIdDetalle(generarID(cantidadDetalles));
             detalle.setIdFactura(idFactura);
             detalle.setIdPlato(idPlato);
             detalle.setCantidad(cantidad);
             detalle.setPrecioUnitario(plato.getPrecio());
             detalle.setEstado(true);
 
-            detalles.push_back(detalle);
+            if(cantidadDetalles == capacidad){
+                int nuevaCapacidad = capacidad * 2;
+                DetalleFactura *detallesAux = new DetalleFactura[nuevaCapacidad];
+
+                for(int i = 0; i < cantidadDetalles; i++){
+                    detallesAux[i] = detalles[i];
+                }
+
+                delete[] detalles;
+                detalles = detallesAux;
+                capacidad = nuevaCapacidad;
+            }
+
+            detalles[cantidadDetalles] = detalle;
+            cantidadDetalles++;
             importeTotal += cantidad * plato.getPrecio();
 
             cout << "Detalle agregado. Subtotal: $" << cantidad * plato.getPrecio() << endl;
@@ -53,11 +70,11 @@ bool DetalleFacturaManager::cargarDetallesFactura(int idFactura, vector<DetalleF
         continuar = leerEnteroEnRango("Agregar otro plato? (1-SI / 0-NO): ", 0, 1);
     }
 
-    return detalles.size() > 0;
+    return cantidadDetalles > 0;
 }
 
-bool DetalleFacturaManager::guardarDetalles(vector<DetalleFactura> detalles){
-    for(int i = 0; i < (int)detalles.size(); i++){
+bool DetalleFacturaManager::guardarDetalles(DetalleFactura *detalles, int cantidadDetalles){
+    for(int i = 0; i < cantidadDetalles; i++){
         if(!_archivo.guardar(detalles[i])){
             return false;
         }

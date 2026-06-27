@@ -1,6 +1,5 @@
 #pragma once
 
-#include <vector>
 #include "detalleFactura.h"
 #include "archivoDetalleFactura.h"
 #include "archivoPlato.h"
@@ -14,8 +13,8 @@ private:
     bool platoActivo(int idPlato, Plato &plato);
 
 public:
-    bool cargarDetallesFactura(int idFactura, std::vector<DetalleFactura> &detalles, float &importeTotal);
-    bool guardarDetalles(std::vector<DetalleFactura> detalles);
+    bool cargarDetallesFactura(int idFactura, DetalleFactura *&detalles, int &cantidadDetalles, float &importeTotal);
+    bool guardarDetalles(DetalleFactura *detalles, int cantidadDetalles);
     void listarPorFactura(int idFactura);
     void listarTodos();
     void anularDetallesFactura(int idFactura);

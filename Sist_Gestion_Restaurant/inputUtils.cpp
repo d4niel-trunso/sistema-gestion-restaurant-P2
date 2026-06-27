@@ -136,3 +136,67 @@ Fecha leerFecha(const char* mensaje)
         cout << "Fecha invalida. Ingrese una fecha valida con formato dia mes anio." << endl;
     }
 }
+
+void ordenarFacturasPorFecha(Factura *facturas, int cantidad)
+{
+    for(int i = 0; i < cantidad - 1; i++)
+    {
+        for(int j = 0; j < cantidad - i - 1; j++)
+        {
+            if(facturas[j].getFechaFactura().toNumero() > facturas[j + 1].getFechaFactura().toNumero())
+            {
+                Factura aux = facturas[j];
+                facturas[j] = facturas[j + 1];
+                facturas[j + 1] = aux;
+            }
+        }
+    }
+}
+
+void ordenarFacturasPorMesa(Factura *facturas, int cantidad)
+{
+    for(int i = 0; i < cantidad - 1; i++)
+    {
+        for(int j = 0; j < cantidad - i - 1; j++)
+        {
+            if(facturas[j].getNumeroMesa() > facturas[j + 1].getNumeroMesa())
+            {
+                Factura aux = facturas[j];
+                facturas[j] = facturas[j + 1];
+                facturas[j + 1] = aux;
+            }
+        }
+    }
+}
+
+void ordenarReservasPorFecha(Reserva *reservas, int cantidad)
+{
+    for(int i = 0; i < cantidad - 1; i++)
+    {
+        for(int j = 0; j < cantidad - i - 1; j++)
+        {
+            if(reservas[j].getFechaReserva().toNumero() > reservas[j + 1].getFechaReserva().toNumero())
+            {
+                Reserva aux = reservas[j];
+                reservas[j] = reservas[j + 1];
+                reservas[j + 1] = aux;
+            }
+        }
+    }
+}
+
+void ordenarReservasPorEstado(Reserva *reservas, int cantidad)
+{
+    for(int i = 0; i < cantidad - 1; i++)
+    {
+        for(int j = 0; j < cantidad - i - 1; j++)
+        {
+            if(reservas[j].getEstadoReserva() > reservas[j + 1].getEstadoReserva())
+            {
+                Reserva aux = reservas[j];
+                reservas[j] = reservas[j + 1];
+                reservas[j + 1] = aux;
+            }
+        }
+    }
+}
