@@ -2,7 +2,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include "menu.h"
-#include "inputUtils.h"
+#include "utilidades.h"
 
 using namespace std;
 

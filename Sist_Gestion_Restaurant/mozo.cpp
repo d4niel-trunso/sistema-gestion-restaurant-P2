@@ -4,7 +4,7 @@ using namespace std;
 
 #include "mozo.h"
 #include "fecha.h"
-#include "inputUtils.h"
+#include "utilidades.h"
 
 Mozo :: Mozo()
 {

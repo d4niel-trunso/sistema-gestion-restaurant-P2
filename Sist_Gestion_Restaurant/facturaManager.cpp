@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include "facturaManager.h"
 #include "rlutil.h"
-#include "inputUtils.h"
+#include "utilidades.h"
 
 using namespace std;
 

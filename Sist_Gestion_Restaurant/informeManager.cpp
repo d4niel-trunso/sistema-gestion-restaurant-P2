@@ -2,7 +2,7 @@
 #include <cstring>
 #include "informeManager.h"
 #include "rlutil.h"
-#include "inputUtils.h"
+#include "utilidades.h"
 
 using namespace std;
 

@@ -2,7 +2,7 @@
 #include <cstring>
 using namespace std;
 #include "mesa.h"
-#include "inputUtils.h"
+#include "utilidades.h"
 
 Mesa :: Mesa()
 {

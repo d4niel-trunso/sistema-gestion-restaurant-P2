@@ -1,6 +1,6 @@
 #include <iostream>
 #include "detalleFacturaManager.h"
-#include "inputUtils.h"
+#include "utilidades.h"
 
 using namespace std;
 

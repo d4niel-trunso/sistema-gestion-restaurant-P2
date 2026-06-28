@@ -3,7 +3,7 @@ using namespace std;
 
 #include "cliente.h"
 #include "persona.h"
-#include "inputUtils.h"
+#include "utilidades.h"
 
 Cliente :: Cliente()
 {

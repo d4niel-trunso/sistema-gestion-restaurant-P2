@@ -1,14 +1,11 @@
 #include <iostream>
-#include <string>
-#include <sstream>
 #include <limits>
-#include <cstring>
 
 #ifdef _WIN32
 #include <windows.h>
 #endif
 
-#include "inputUtils.h"
+#include "utilidades.h"
 
 using namespace std;
 
@@ -20,15 +17,25 @@ void configurarConsola()
 #endif
 }
 
+static void limpiarBuffer()
+{
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+}
+
 void leerCadena(const char* mensaje, char* destino, int tamanio)
 {
-    string valor;
-
     cout << mensaje;
-    getline(cin >> ws, valor);
+    cin >> ws;
+    cin.getline(destino, tamanio);
 
-    strncpy(destino, valor.c_str(), tamanio - 1);
-    destino[tamanio - 1] = '\0';
+    // Si el usuario ingresa una cadena de caracteres mas larga de la que se puede almacenar,
+    // cin.getline va a llenar la cadena hasta tamanio y va a quedar en estado de error.
+    // Por lo que limpiamos el error y el buffer para siguientes ingresos.
+    if(cin.fail())
+    {
+        cin.clear();
+        limpiarBuffer();
+    }
 }
 
 int leerEntero(const char* mensaje)
@@ -40,13 +47,13 @@ int leerEntero(const char* mensaje)
         cout << mensaje;
         if(cin >> valor)
         {
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            limpiarBuffer();
             return valor;
         }
 
         cout << "Entrada invalida. Ingrese un numero entero." << endl;
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        limpiarBuffer();
     }
 }
 
@@ -75,7 +82,7 @@ float leerFloatMinimo(const char* mensaje, float minimo)
         cout << mensaje;
         if(cin >> valor)
         {
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            limpiarBuffer();
             if(valor >= minimo)
             {
                 return valor;
@@ -86,7 +93,7 @@ float leerFloatMinimo(const char* mensaje, float minimo)
         {
             cout << "Entrada invalida. Ingrese un numero." << endl;
             cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            limpiarBuffer();
         }
     }
 }
@@ -114,26 +121,90 @@ static bool esFechaValida(int dia, int mes, int anio)
     return dia <= dias[mes - 1];
 }
 
+static bool esDigito(char caracter)
+{
+    return caracter >= '0' && caracter <= '9';
+}
+
+static bool esEspacio(char caracter)
+{
+    return caracter == ' ' || caracter == '\t' || caracter == '\r';
+}
+
+static bool leerNumeroFecha(const char* linea, int& posicion, int& numero)
+{
+    if(!esDigito(linea[posicion]))
+    {
+        return false;
+    }
+
+    numero = 0;
+    while(esDigito(linea[posicion]))
+    {
+        numero = numero * 10 + (linea[posicion] - '0');
+        posicion++;
+    }
+
+    return true;
+}
+
+static bool parsearFecha(const char* linea, int& dia, int& mes, int& anio)
+{
+    int posicion = 0;
+
+    if(!leerNumeroFecha(linea, posicion, dia) || linea[posicion] != '/')
+    {
+        return false;
+    }
+    posicion++;
+
+    if(!leerNumeroFecha(linea, posicion, mes) || linea[posicion] != '/')
+    {
+        return false;
+    }
+    posicion++;
+
+    if(!leerNumeroFecha(linea, posicion, anio))
+    {
+        return false;
+    }
+
+    while(linea[posicion] != '\0')
+    {
+        if(!esEspacio(linea[posicion]))
+        {
+            return false;
+        }
+        posicion++;
+    }
+
+    return true;
+}
+
 Fecha leerFecha(const char* mensaje)
 {
-    string linea;
-    string extra;
+    char linea[50];
     int dia;
     int mes;
     int anio;
 
     while(true)
     {
-        cout << mensaje << " (dia mes anio): ";
-        getline(cin >> ws, linea);
+        cout << mensaje << " (dia/mes/anio): ";
+        cin >> ws;
+        cin.getline(linea, 50);
 
-        istringstream entrada(linea);
-        if((entrada >> dia >> mes >> anio) && !(entrada >> extra) && esFechaValida(dia, mes, anio))
+        if(cin.fail())
+        {
+            cin.clear();
+            limpiarBuffer();
+        }
+        else if(parsearFecha(linea, dia, mes, anio) && esFechaValida(dia, mes, anio))
         {
             return Fecha(dia, mes, anio);
         }
 
-        cout << "Fecha invalida. Ingrese una fecha valida con formato dia mes anio." << endl;
+        cout << "Fecha invalida. Ingrese una fecha valida con formato dia/mes/anio." << endl;
     }
 }
 

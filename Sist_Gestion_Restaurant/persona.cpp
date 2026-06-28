@@ -3,7 +3,7 @@
 using namespace std;
 
 #include "persona.h"
-#include "inputUtils.h"
+#include "utilidades.h"
 
 Persona :: Persona()
 {

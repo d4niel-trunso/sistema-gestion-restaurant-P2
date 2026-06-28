@@ -2,7 +2,7 @@
 #include <cstring>
 using namespace std;
 #include "detalleFactura.h"
-#include "inputUtils.h"
+#include "utilidades.h"
 
 
 DetalleFactura :: DetalleFactura()

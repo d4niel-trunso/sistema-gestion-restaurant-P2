@@ -34,10 +34,10 @@ Sistema de gestion de restaurante hecho en C++ para Programacion 2. La aplicacio
 - Para persistencia, seguir el patron con `FILE*`, `fopen`, `fread`, `fwrite`, `fseek`, `ftell` y `fclose`, salvo que se decida una refactorizacion general.
 - Los IDs se generan actualmente como `getCantidadRegistros() + 1`; si se agrega baja logica por estado, revisar duplicados antes de confiar en ese calculo.
 - Usar `bool estado` como baja logica cuando corresponda, en vez de borrar registros fisicamente.
-- Para inputs nuevos o modificados, usar `inputUtils.*`:
+- Para inputs nuevos o modificados, usar `utilidades.*`:
   - `leerCadena` para textos que puedan tener espacios.
   - `leerEntero`, `leerEnteroEnRango`, `leerFloatMinimo` y `leerSiNo` para numeros y opciones.
-  - `leerFecha` para fechas, siempre con formato `dia mes anio`.
+  - `leerFecha` para fechas, siempre con formato `dia/mes/anio`.
 - Guardar los archivos fuente en UTF-8 si se agregan textos con `ñ`, acentos o signos como `¿`.
 - Evitar cambios masivos de estilo o refactors amplios si la tarea es puntual.
 

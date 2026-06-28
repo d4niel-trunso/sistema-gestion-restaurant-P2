@@ -60,8 +60,8 @@
 		<Unit filename="fecha.h" />
 		<Unit filename="informeManager.cpp" />
 		<Unit filename="informeManager.h" />
-		<Unit filename="inputUtils.cpp" />
-		<Unit filename="inputUtils.h" />
+		<Unit filename="utilidades.cpp" />
+		<Unit filename="utilidades.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="menu.cpp" />
 		<Unit filename="menu.h" />

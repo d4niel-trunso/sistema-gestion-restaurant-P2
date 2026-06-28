@@ -2,7 +2,7 @@
 #include <cstring>
 using namespace std;
 #include "plato.h"
-#include "inputUtils.h"
+#include "utilidades.h"
 
 Plato :: Plato(){
 
